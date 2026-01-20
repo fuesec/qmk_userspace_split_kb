@@ -6,14 +6,14 @@
 #define ML_SAFE_RANGE SAFE_RANGE
 
 enum custom_keycodes {
-  RGB_SLD = ML_SAFE_RANGE,
-  MAC_DND,
-  CMD_TAB,
-  CLEAR_OSM_MOD_LEFT,
-  CLEAR_OSM_MOD_RIGHT,
-  SWAP_BASE_LAYER_COLOR,
+  MAC_DO_NOT_DISTURB = ML_SAFE_RANGE,
+  MAC_SLEEP,
 };
 
+#define MAC_LOCK LGUI(LCTL(KC_Q))
+#define MAC_SCREENSHOT LGUI(LSFT(KC_3))
+#define MAC_SCREENSHOT_AREA LGUI(LSFT(KC_4))
+#define MAC_SLEEP_DISPLAY LCTL(LSFT(KC_MEDIA_EJECT))
 
 enum tap_dance_codes {
   DANCE_0, // switch to num pad layer
@@ -32,6 +32,7 @@ user_config_t user_config;
 // _______ = KC_TRANSPARENT
 // XXXXXXX = KC_NO
 // QK_BOOT ??
+// tap dance: TD(DANCE_0)
 // old bottom layer:
 // RM_TOGG, RM_HUEU, RM_SATU, RM_VALU
 // RM_NEXT, RM_HUED, RM_SATD, RM_VALD
@@ -39,31 +40,43 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = LAYOUT_corne_hlc(
         KC_ESCAPE,  	KC_Q,    KC_W,  KC_E,    KC_R,  KC_T,		KC_Y,    KC_U,  KC_I,    KC_O,   KC_P,    KC_BSPC,
         KC_TAB, 		KC_A,    KC_S,  KC_D,    KC_F,  KC_G,   	KC_H,    KC_J,  KC_K,    KC_L,   KC_SCLN, KC_ENTER,
-        TD(DANCE_0), 	KC_Z,    KC_X,  KC_C,    KC_V,  KC_B,   	KC_N,    KC_M,  KC_COMM, KC_DOT, KC_SLSH, CW_TOGG,
-                                 KC_NO, MO(1), 	 MO(2), MO(3),  	MO(2), 	 KC_SPACE,
-                 KC_MUTE, KC_NO, KC_NO, KC_NO,   KC_NO, KC_MUTE, 	KC_NO,   KC_NO,   KC_NO,  KC_NO
+        XXXXXXX, 	KC_Z,    KC_X,  KC_C,    KC_V,  KC_B,   	KC_N,    KC_M,  KC_COMM, KC_DOT, KC_SLSH, CW_TOGG,
+                                 MO(4), MO(3), 	 MO(1), MO(2),  	KC_SPACE,      MO(5),
+                 KC_MUTE, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, KC_MUTE, 	XXXXXXX,   XXXXXXX,   XXXXXXX,  XXXXXXX
     ),
 [1] = LAYOUT_corne_hlc(
-        KC_TRANSPARENT,  KC_LEFT_CTRL,    KC_LEFT_SHIFT,    KC_LEFT_ALT,    KC_LEFT_GUI,    KC_NO,    KC_HOME,   LGUI(KC_LBRC),  LGUI(KC_RBRC),  KC_NO,          KC_NO,          KC_TRANSPARENT,
-    KC_TRANSPARENT, OSM(MOD_LCTL),  OSM(MOD_LSFT),  OSM(MOD_LALT),  OSM(MOD_LGUI),  OSM(MOD_HYPR),                                  KC_END,         KC_LEFT,        KC_RIGHT,       KC_DOWN,        KC_UP,          KC_TRANSPARENT,
-    KC_NO,          KC_NO,          KC_NO,          KC_NO,          OSM(MOD_MEH),   KC_NO,                                          KC_NO,          LGUI(LSFT(KC_LBRC)),LGUI(LSFT(KC_RBRC)),KC_PGDN,        KC_PAGE_UP,     KC_NO,
-                                   KC_NO, KC_NO, KC_TRANSPARENT,  MO(4),  KC_TRANSPARENT,   KC_NO,
+        _______,  KC_LEFT_CTRL,    KC_LEFT_SHIFT,    KC_LEFT_ALT,    KC_LEFT_GUI,    XXXXXXX,    KC_HOME,   LGUI(KC_LBRC),  LGUI(KC_RBRC),  XXXXXXX,          XXXXXXX,          _______,
+    _______, OSM(MOD_LCTL),  OSM(MOD_LSFT),  OSM(MOD_LALT),  OSM(MOD_LGUI),  OSM(MOD_HYPR),                                  KC_END,         KC_LEFT,        KC_RIGHT,       KC_DOWN,        KC_UP,          _______,
+    _______,          XXXXXXX,          XXXXXXX,          XXXXXXX,          OSM(MOD_MEH),   XXXXXXX,                                          XXXXXXX,          LGUI(LSFT(KC_LBRC)),LGUI(LSFT(KC_RBRC)),KC_PGDN,        KC_PAGE_UP,     _______,
+                                   _______, _______,    _______,  _______,  _______, _______,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______
     ),
 [2] = LAYOUT_corne_hlc(
-    KC_TRANSPARENT, KC_GRAVE,       KC_LBRC,        KC_LCBR,        KC_LPRN,        KC_KP_ASTERISK,                                 KC_PERC,        KC_RPRN,        KC_RCBR,        KC_RBRC,        KC_TILD,        KC_F11,
-    KC_TRANSPARENT, KC_DQUO,        KC_EXLM,        KC_KP_EQUAL,    KC_KP_MINUS,    KC_HASH,                                        OSM(MOD_HYPR),  OSM(MOD_RGUI),  OSM(MOD_RALT),  OSM(MOD_RSFT),  OSM(MOD_RCTL),  KC_F12,
-    KC_TRANSPARENT, KC_QUOTE,       KC_AT,          KC_KP_PLUS,     KC_UNDS,        KC_CIRC,                                        KC_NO,          OSM(MOD_MEH),   KC_AMPR,        KC_PIPE,        KC_BSLS,        KC_F13,
-                                   KC_NO, KC_NO,    MO(4),  KC_TRANSPARENT,  KC_TRANSPARENT, KC_NO,
+    _______, KC_GRAVE,       KC_LBRC,        KC_LCBR,        KC_LPRN,        KC_KP_ASTERISK,                                 KC_PERC,        KC_RPRN,        KC_RCBR,        KC_RBRC,        KC_TILD,        _______,
+    _______, KC_DQUO,        KC_EXLM,        KC_KP_EQUAL,    KC_KP_MINUS,    KC_HASH,                                        OSM(MOD_HYPR),  OSM(MOD_RGUI),  OSM(MOD_RALT),  OSM(MOD_RSFT),  OSM(MOD_RCTL),  _______,
+    _______, KC_QUOTE,       KC_AT,          KC_KP_PLUS,     KC_UNDS,        KC_CIRC,                                        XXXXXXX,   OSM(MOD_MEH), KC_AMPR,        KC_PIPE,        KC_BSLS,        _______,
+                                   _______, _______,    _______,  _______,  _______, _______,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
-// top row from voyager
-//    KC_NO,          LCTL(LSFT(KC_MEDIA_EJECT)),MAC_DND,        LALT(LGUI(KC_MEDIA_EJECT)),LGUI(LCTL(KC_Q)),LGUI(LSFT(KC_3)),                                KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          QK_BOOT,
 [3] = LAYOUT_corne_hlc(
-    KC_NO,          KC_MEDIA_PREV_TRACK,KC_MEDIA_NEXT_TRACK,KC_MEDIA_STOP,  KC_MEDIA_PLAY_PAUSE,LGUI(LSFT(KC_4)),                                KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-    SWAP_BASE_LAYER_COLOR,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,                                          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-    TD(DANCE_1),          KC_BRIGHTNESS_DOWN,KC_BRIGHTNESS_UP,KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,KC_AUDIO_MUTE,                                  KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,          KC_NO,
-                                   KC_NO, KC_TRANSPARENT, KC_TRANSPARENT,  KC_TRANSPARENT,  KC_TRANSPARENT, KC_NO,
+    _______, XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,                                          KC_KP_0,        KC_KP_1,        KC_KP_2,        KC_KP_3,        KC_KP_DOT, KC_KP_ASTERISK,
+    _______, OSM(MOD_LCTL),  OSM(MOD_LSFT),  OSM(MOD_LALT),  OSM(MOD_LGUI),  OSM(MOD_HYPR),                                           KC_KP_PLUS,     KC_KP_4,        KC_KP_5,        KC_KP_6,        KC_KP_COMMA,    KC_KP_SLASH,
+    _______,          XXXXXXX,          XXXXXXX,          XXXXXXX,          OSM(MOD_MEH),          XXXXXXX,                                          KC_KP_MINUS,    KC_KP_7,        KC_KP_8,        KC_KP_9,        KC_KP_EQUAL,          XXXXXXX,
+                                   _______, _______,    _______,  _______,  _______, _______,
+                 _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______
+    ),
+[4] = LAYOUT_corne_hlc(
+    _______, XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,                                          XXXXXXX,        KC_F1,        KC_F2,        KC_F3,        KC_F10, XXXXXXX,
+    _______, OSM(MOD_LCTL),  OSM(MOD_LSFT),  OSM(MOD_LALT),  OSM(MOD_LGUI),  OSM(MOD_HYPR),                                          XXXXXXX,     KC_F4,        KC_F5,        KC_F6,        KC_F11,    XXXXXXX,
+    _______,          XXXXXXX,          XXXXXXX,          XXXXXXX,          OSM(MOD_MEH),          XXXXXXX,                                          XXXXXXX,    KC_F7,        KC_F8,        KC_F9,        KC_F12,          XXXXXXX,
+                                   _______, _______,    _______,  _______,  _______, _______,
+                 _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______
+    ),
+[5] = LAYOUT_corne_hlc(
+    XXXXXXX,          KC_MEDIA_PREV_TRACK,KC_MEDIA_NEXT_TRACK,KC_MEDIA_STOP,  KC_MEDIA_PLAY_PAUSE,XXXXXXX,                                XXXXXXX,          MAC_SCREENSHOT,          MAC_SCREENSHOT_AREA,          XXXXXXX,          XXXXXXX,          XXXXXXX,
+    XXXXXXX,         KC_BRIGHTNESS_DOWN,KC_BRIGHTNESS_UP,KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,KC_AUDIO_MUTE,                                          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,
+    XXXXXXX,          MAC_SLEEP_DISPLAY, MAC_DO_NOT_DISTURB,       MAC_SLEEP,MAC_LOCK, XXXXXXX,                                 XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,
+                                   _______, _______,    _______,  _______,  XXXXXXX, XXXXXXX,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )};
 
@@ -78,6 +91,18 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 #ifdef OTHER_KEYMAP_C
 #    include OTHER_KEYMAP_C
 #endif // OTHER_KEYMAP_C
+
+bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+  switch (keycode) {
+    case MAC_DO_NOT_DISTURB:
+      HSS(0x9B);
+      return false;
+	case MAC_SLEEP:
+	  HSS(0x82)
+      return false;
+  }
+  return true; // Process all other keycodes normally
+}
 
 #ifdef TAP_DANCE_ENABLE
 typedef struct {
