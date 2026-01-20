@@ -160,9 +160,10 @@ const key_override_t *key_overrides_list[] = {
 };
 
 // const key_override_t **key_overrides = (const key_override_t **)key_overrides_list;
-const key_override_t *key_overrides[ARRAY_SIZE(key_overrides_list) + 1] = {
-    [0 ... ARRAY_SIZE(key_overrides_list) - 1] = key_overrides_list,
-    [ARRAY_SIZE(key_overrides_list)] = NULL
+const key_override_t *key_overrides[] = {
+    key_overrides_list[0],
+    key_overrides_list[1],
+    NULL
 };
 #endif
 
