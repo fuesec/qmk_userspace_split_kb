@@ -1,13 +1,10 @@
 #include QMK_KEYBOARD_H
-#include "keymap_mac_system.h"
 #if __has_include("keymap.h")
 #    include "keymap.h"
 #endif
 
-#define ML_SAFE_RANGE SAFE_RANGE
-
 enum custom_keycodes {
-  MAC_DO_NOT_DISTURB = ML_SAFE_RANGE,
+  MAC_DO_NOT_DISTURB = SAFE_RANGE,
   MAC_SLEEP,
   MAC_LOCK
 };
