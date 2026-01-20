@@ -153,17 +153,10 @@ const key_override_t delete_word_key_override =
     	MOD_MASK_GUI,        // Do not activate when
     	ko_option_no_reregister_trigger); // Specifies that the play key is not registered again after lifting "Trigger modifier"
 
-const key_override_t *key_overrides_list[] = {
+const key_override_t *key_overrides[] = {
   &delete_key_override,
   &delete_word_key_override,
   NULL
-};
-
-// const key_override_t **key_overrides = (const key_override_t **)key_overrides_list;
-const key_override_t *key_overrides[] = {
-    key_overrides_list[0],
-    key_overrides_list[1],
-    NULL
 };
 #endif
 
