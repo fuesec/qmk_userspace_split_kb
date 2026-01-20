@@ -5,10 +5,10 @@
 
 enum custom_keycodes {
   MAC_DO_NOT_DISTURB = SAFE_RANGE,
-  MAC_SLEEP,
-  MAC_LOCK
 };
 
+#define MAC_LOCK LGUI(LCTL(KC_Q))
+#define MAC_SLEEP LALT(LGUI(KC_MEDIA_EJECT))
 #define MAC_SCREENSHOT LGUI(LSFT(KC_3))
 #define MAC_SCREENSHOT_AREA LGUI(LSFT(KC_4))
 #define MAC_SLEEP_DISPLAY LCTL(LSFT(KC_MEDIA_EJECT))
@@ -73,7 +73,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [5] = LAYOUT_corne_hlc(
     XXXXXXX,          KC_MEDIA_PREV_TRACK,KC_MEDIA_NEXT_TRACK,KC_MEDIA_STOP,  KC_MEDIA_PLAY_PAUSE,XXXXXXX,                                XXXXXXX,          MAC_SCREENSHOT,          MAC_SCREENSHOT_AREA,          XXXXXXX,          XXXXXXX,          XXXXXXX,
     XXXXXXX,         KC_BRIGHTNESS_DOWN,KC_BRIGHTNESS_UP,KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,KC_AUDIO_MUTE,                                          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,
-    XXXXXXX,          MAC_SLEEP_DISPLAY, MAC_DO_NOT_DISTURB,       MAC_SLEEP,MAC_LOCK, XXXXXXX,                                 XXXXXXX,          XXXXXXX,          RM_TOGG,          RM_NEXT,          XXXXXXX,          XXXXXXX,
+    XXXXXXX,          MAC_SLEEP_DISPLAY, MAC_DO_NOT_DISTURB,       MAC_SLEEP,MAC_LOCK, XXXXXXX,                                 XXXXXXX,          RM_TOGG,          RM_NEXT,          XXXXXXX,          XXXXXXX,          XXXXXXX,
                                    _______, _______,    _______,  _______,  XXXXXXX, XXXXXXX,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )};
@@ -97,11 +97,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     case MAC_DO_NOT_DISTURB:
       HSS(0x9B);
       return false;
-	case MAC_SLEEP:
-	  HSS(0x82);
-      return false;
-    case MAC_LOCK:
-      HCS(0x19E);
   }
   return true; // Process all other keycodes normally
 }
