@@ -8,6 +8,15 @@ enum tap_dance_codes {
   DANCE_1, // persist color to EEPROM
 };
 
+typedef union {
+  uint32_t raw;
+  struct {
+    uint8_t   color_index :8;
+  };
+} user_config_t;
+
+user_config_t user_config;
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [0] = LAYOUT_corne_hlc(
         KC_TAB,  KC_Q,    KC_W,  KC_E,    KC_R,  KC_T,   KC_Y,    KC_U,  KC_I,    KC_O,   KC_P,    KC_BSPC,
@@ -51,6 +60,11 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 #endif // OTHER_KEYMAP_C
 
 #ifdef TAP_DANCE_ENABLE
+typedef struct {
+    bool is_press_action;
+    uint8_t step;
+} tap;
+
 enum {
     SINGLE_TAP = 1,
     SINGLE_HOLD,
