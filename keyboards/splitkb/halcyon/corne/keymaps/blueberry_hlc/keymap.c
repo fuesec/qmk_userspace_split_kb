@@ -101,7 +101,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	  HSS(0x82);
       return false;
     case MAC_LOCK:
-      HSS(0x19E);
+      HCS(0x19E);
   }
   return true; // Process all other keycodes normally
 }
