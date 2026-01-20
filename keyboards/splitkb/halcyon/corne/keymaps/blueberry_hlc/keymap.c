@@ -1,4 +1,5 @@
 #include QMK_KEYBOARD_H
+#include "keymap_mac_system.h"
 #if __has_include("keymap.h")
 #    include "keymap.h"
 #endif
@@ -8,9 +9,9 @@
 enum custom_keycodes {
   MAC_DO_NOT_DISTURB = ML_SAFE_RANGE,
   MAC_SLEEP,
+  MAC_LOCK
 };
 
-#define MAC_LOCK LGUI(LCTL(KC_Q))
 #define MAC_SCREENSHOT LGUI(LSFT(KC_3))
 #define MAC_SCREENSHOT_AREA LGUI(LSFT(KC_4))
 #define MAC_SLEEP_DISPLAY LCTL(LSFT(KC_MEDIA_EJECT))
@@ -102,6 +103,8 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	case MAC_SLEEP:
 	  HSS(0x82);
       return false;
+    case MAC_LOCK:
+      HCS(0x19E);
   }
   return true; // Process all other keycodes normally
 }

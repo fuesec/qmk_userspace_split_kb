@@ -26,6 +26,7 @@
 #define MOUSEKEY_WHEEL_INTERVAL 65
 
 #define CAPS_WORD_IDLE_TIMEOUT 3000  // 3 seconds.
+#define HSS(report) host_system_send(record->event.pressed ? report : 0); return false
 
 #define CIRQUE_PINNACLE_SECONDARY_TAP_ENABLE
 
