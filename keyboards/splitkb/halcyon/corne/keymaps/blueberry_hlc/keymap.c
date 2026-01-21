@@ -7,6 +7,9 @@ enum custom_keycodes {
   MAC_DO_NOT_DISTURB = SAFE_RANGE,
 };
 
+#define MEH_KEY  (LCTL(LSFT(LALT(KC_NO))))
+#define HYPER_KEY (LCTL(LSFT(LALT(LGUI(KC_NO)))))
+
 #define MAC_LOCK LGUI(LCTL(KC_Q))
 #define MAC_SLEEP LALT(LGUI(KC_MEDIA_EJECT))
 #define MAC_SCREENSHOT LGUI(LSFT(KC_3))
@@ -43,30 +46,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_MUTE, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, KC_MUTE, 	XXXXXXX,   XXXXXXX,   XXXXXXX,  XXXXXXX
     ),
 [1] = LAYOUT_corne_hlc(
-        _______,  KC_LEFT_CTRL,    KC_LEFT_SHIFT,    KC_LEFT_ALT,    KC_LEFT_GUI,    XXXXXXX,    KC_HOME,   LGUI(KC_LBRC),  LGUI(KC_RBRC),  XXXXXXX,          XXXXXXX,          _______,
-    _______, OSM(MOD_LCTL),  OSM(MOD_LSFT),  OSM(MOD_LALT),  OSM(MOD_LGUI),  OSM(MOD_HYPR),                                  KC_END,         KC_LEFT,        KC_RIGHT,       KC_DOWN,        KC_UP,          _______,
-    _______,          XXXXXXX,          XXXXXXX,          XXXXXXX,          OSM(MOD_MEH),   XXXXXXX,                                          XXXXXXX,          LGUI(LSFT(KC_LBRC)),LGUI(LSFT(KC_RBRC)),KC_PGDN,        KC_PAGE_UP,     _______,
+        _______,  XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_HOME,   LGUI(KC_LBRC),  LGUI(KC_RBRC),  XXXXXXX,          XXXXXXX,          _______,
+    _______, KC_LEFT_CTRL,    KC_LEFT_SHIFT,    KC_LEFT_ALT,    KC_LEFT_GUI,  HYPER_KEY,                                  KC_END,         KC_LEFT,        KC_RIGHT,       KC_DOWN,        KC_UP,          _______,
+    _______,          XXXXXXX,          XXXXXXX,          XXXXXXX,          MEH_KEY,   XXXXXXX,                                          XXXXXXX,          LGUI(LSFT(KC_LBRC)),LGUI(LSFT(KC_RBRC)),KC_PGDN,        KC_PAGE_UP,     _______,
                                    _______, _______,    _______,  _______,  _______, _______,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______
     ),
 [2] = LAYOUT_corne_hlc(
     _______, KC_GRAVE,       KC_LBRC,        KC_LCBR,        KC_LPRN,        KC_KP_ASTERISK,                                 KC_PERC,        KC_RPRN,        KC_RCBR,        KC_RBRC,        KC_TILD,        _______,
-    _______, KC_DQUO,        KC_EXLM,        KC_KP_EQUAL,    KC_KP_MINUS,    KC_HASH,                                        OSM(MOD_HYPR),  OSM(MOD_RGUI),  OSM(MOD_RALT),  OSM(MOD_RSFT),  OSM(MOD_RCTL),  _______,
-    _______, KC_QUOTE,       KC_AT,          KC_KP_PLUS,     KC_UNDS,        KC_CIRC,                                        XXXXXXX,   OSM(MOD_MEH), KC_AMPR,        KC_PIPE,        KC_BSLS,        _______,
+    _______, KC_DQUO,        KC_EXLM,        KC_KP_EQUAL,    KC_KP_MINUS,    KC_HASH,                                        HYPER_KEY, KC_RIGHT_GUI,  KC_RIGHT_ALT,  KC_RIGHT_SHIFT,  KC_RIGHT_CTRL,  _______,
+    _______, KC_QUOTE,       KC_AT,          KC_KP_PLUS,     KC_UNDS,        KC_CIRC,                                        XXXXXXX,   MEH_KEY, KC_AMPR,        KC_PIPE,        KC_BSLS,        _______,
                                    _______, _______,    _______,  _______,  _______, _______,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 [3] = LAYOUT_corne_hlc(
-    _______, KC_LEFT_CTRL,    KC_LEFT_SHIFT,    KC_LEFT_ALT,    KC_LEFT_GUI, _______,                                          KC_0,        KC_1,        KC_2,        KC_3,        KC_KP_DOT, KC_KP_ASTERISK,
-    _______, OSM(MOD_LCTL),  OSM(MOD_LSFT),  OSM(MOD_LALT),  OSM(MOD_LGUI),  OSM(MOD_HYPR),                                           KC_KP_PLUS,     KC_4,        KC_5,        KC_6,        KC_KP_COMMA,    KC_KP_SLASH,
-    _______,          XXXXXXX,          XXXXXXX,          XXXXXXX,          OSM(MOD_MEH),          XXXXXXX,                                          KC_KP_MINUS,    KC_7,        KC_8,        KC_9,        KC_KP_EQUAL,          XXXXXXX,
+    _______, XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX,                                          KC_0,        KC_1,        KC_2,        KC_3,        KC_KP_DOT, KC_KP_ASTERISK,
+    _______, KC_LEFT_CTRL,    KC_LEFT_SHIFT,    KC_LEFT_ALT,    KC_LEFT_GUI,  HYPER_KEY,                                           KC_KP_PLUS,     KC_4,        KC_5,        KC_6,        KC_KP_COMMA,    KC_KP_SLASH,
+    _______,          XXXXXXX,          XXXXXXX,          XXXXXXX,          MEH_KEY,          XXXXXXX,                                          KC_KP_MINUS,    KC_7,        KC_8,        KC_9,        KC_KP_EQUAL,          XXXXXXX,
                                    _______, _______,    _______,  _______,  _______, _______,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______
     ),
 [4] = LAYOUT_corne_hlc(
     _______, XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,                                          XXXXXXX,        KC_F1,        KC_F2,        KC_F3,        KC_F10, XXXXXXX,
-    _______, OSM(MOD_LCTL),  OSM(MOD_LSFT),  OSM(MOD_LALT),  OSM(MOD_LGUI),  OSM(MOD_HYPR),                                          XXXXXXX,     KC_F4,        KC_F5,        KC_F6,        KC_F11,    XXXXXXX,
-    _______,          XXXXXXX,          XXXXXXX,          XXXXXXX,          OSM(MOD_MEH),          XXXXXXX,                                          XXXXXXX,    KC_F7,        KC_F8,        KC_F9,        KC_F12,          XXXXXXX,
+    _______,  KC_LEFT_CTRL,    KC_LEFT_SHIFT,    KC_LEFT_ALT,    KC_LEFT_GUI,  HYPER_KEY,                                          XXXXXXX,     KC_F4,        KC_F5,        KC_F6,        KC_F11,    XXXXXXX,
+    _______,          XXXXXXX,          XXXXXXX,          XXXXXXX,          MEH_KEY,          XXXXXXX,                                          XXXXXXX,    KC_F7,        KC_F8,        KC_F9,        KC_F12,          XXXXXXX,
                                    _______, _______,    _______,  _______,  _______, _______,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______
     ),
