@@ -4,6 +4,7 @@ TAP_DANCE_ENABLE = yes
 KEY_OVERRIDE_ENABLE = yes
 SPACE_CADET_ENABLE = no
 CAPS_WORD_ENABLE = yes
+CONSOLE_ENABLE=yes
 
 # This adds module functionality to your keyboard (files found in users/halcyon_modules)
 USER_NAME := halcyon_modules
