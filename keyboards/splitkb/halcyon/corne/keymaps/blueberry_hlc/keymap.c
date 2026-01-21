@@ -62,30 +62,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_MUTE, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, KC_MUTE, 	XXXXXXX,   XXXXXXX,   XXXXXXX,  XXXXXXX
     ),
 [LAYER_NAVIGATION] = LAYOUT_corne_hlc(
-        _______,  XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_HOME,   CKC_MAC_BACK,  CKC_MAC_FORWARD,  XXXXXXX,          XXXXXXX,          _______,
-    _______, KC_LEFT_CTRL,    KC_LEFT_SHIFT,    KC_LEFT_ALT,    KC_LEFT_GUI,  CKC_HYPER,                                  KC_END,         KC_LEFT,        KC_RIGHT,       KC_DOWN,        KC_UP,          _______,
-    _______,          XXXXXXX,          XXXXXXX,          XXXXXXX,          CKC_MEH,   XXXXXXX,                                          XXXXXXX,          LGUI(LSFT(KC_LBRC)),LGUI(LSFT(KC_RBRC)),KC_PGDN,        KC_PAGE_UP,     _______,
+        _______,  QK_MOUSE_WHEEL_LEFT,    QK_MOUSE_WHEEL_RIGHT,    QK_MOUSE_BUTTON_2,    QK_MOUSE_BUTTON_1,    QK_MOUSE_WHEEL_UP,    KC_HOME,   CKC_MAC_BACK,  CKC_MAC_FORWARD,  XXXXXXX,          XXXXXXX,          _______,
+    _______, KC_LEFT_CTRL,    KC_LEFT_SHIFT,    KC_LEFT_ALT,    KC_LEFT_GUI,  QK_MOUSE_WHEEL_DOWN,                                  KC_END,         KC_LEFT,        KC_RIGHT,       KC_DOWN,        KC_UP,          _______,
+    _______,          XXXXXXX,          XXXXXXX,          XXXXXXX,          CKC_MEH,   CKC_HYPER,                                          XXXXXXX,          LGUI(LSFT(KC_LBRC)),LGUI(LSFT(KC_RBRC)),KC_PAGE_DOWN,        KC_PAGE_UP,     _______,
                                    _______, _______,    _______,  _______,  _______, _______,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______
     ),
 [LAYER_SPECIAL_CHARACTERS] = LAYOUT_corne_hlc(
     _______, KC_GRAVE,       KC_LEFT_BRACKET,        KC_LEFT_CURLY_BRACE,        KC_LEFT_PAREN,        KC_KP_ASTERISK,                                 KC_PERCENT,        KC_RIGHT_PAREN,        KC_RIGHT_CURLY_BRACE,        KC_RIGHT_BRACKET,        KC_TILDE,        _______,
-    _______, KC_DOUBLE_QUOTE,        KC_EXCLAIM,        KC_KP_EQUAL,    KC_KP_MINUS,    KC_HASH,                                        CKC_HYPER, KC_RIGHT_GUI,  KC_RIGHT_ALT,  KC_RIGHT_SHIFT,  KC_RIGHT_CTRL,  _______,
-    _______, KC_QUOTE,       KC_AT,          KC_KP_PLUS,     KC_UNDERSCORE,        KC_CIRCUMFLEX,                                        KC_DOLLAR,   CKC_MEH, KC_AMPERSAND,        KC_PIPE,        KC_BACKSLASH,        _______,
+    _______, KC_DOUBLE_QUOTE,        KC_EXCLAIM,        KC_KP_EQUAL,    KC_KP_MINUS,    KC_HASH,                                        KC_DOLLAR, KC_RIGHT_GUI,  KC_RIGHT_ALT,  KC_RIGHT_SHIFT,  KC_RIGHT_CTRL,  _______,
+    _______, KC_QUOTE,       KC_AT,          KC_KP_PLUS,     KC_UNDERSCORE,        KC_CIRCUMFLEX,                                        CKC_HYPER,   CKC_MEH, KC_AMPERSAND,        KC_PIPE,        KC_BACKSLASH,        _______,
                                    _______, _______,    _______,  _______,  _______, _______,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 [LAYER_NUMPAD] = LAYOUT_corne_hlc(
     _______, XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX,                                          KC_0,        KC_1,        KC_2,        KC_3,        KC_KP_DOT, KC_KP_ASTERISK,
-    _______, KC_LEFT_CTRL,    KC_LEFT_SHIFT,    KC_LEFT_ALT,    KC_LEFT_GUI,  CKC_HYPER,                                           KC_KP_PLUS,     KC_4,        KC_5,        KC_6,        KC_KP_COMMA,    KC_KP_SLASH,
-    _______,          XXXXXXX,          XXXXXXX,          XXXXXXX,          CKC_MEH,          XXXXXXX,                                          KC_KP_MINUS,    KC_7,        KC_8,        KC_9,        KC_KP_EQUAL,          XXXXXXX,
+    _______, KC_LEFT_CTRL,    KC_LEFT_SHIFT,    KC_LEFT_ALT,    KC_LEFT_GUI,  XXXXXXX,                                           KC_KP_PLUS,     KC_4,        KC_5,        KC_6,        KC_KP_COMMA,    KC_KP_SLASH,
+    _______,          XXXXXXX,          XXXXXXX,          XXXXXXX,          CKC_MEH,          CKC_HYPER,                                          KC_KP_MINUS,    KC_7,        KC_8,        KC_9,        KC_KP_EQUAL,          XXXXXXX,
                                    _______, _______,    _______,  _______,  _______, _______,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______
     ),
 [LAYER_FUNCTION_KEYS] = LAYOUT_corne_hlc(
     _______, XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,                                          XXXXXXX,        KC_F1,        KC_F2,        KC_F3,        KC_F10, XXXXXXX,
-    _______,  KC_LEFT_CTRL,    KC_LEFT_SHIFT,    KC_LEFT_ALT,    KC_LEFT_GUI,  CKC_HYPER,                                          XXXXXXX,     KC_F4,        KC_F5,        KC_F6,        KC_F11,    XXXXXXX,
-    _______,          XXXXXXX,          XXXXXXX,          XXXXXXX,          CKC_MEH,          XXXXXXX,                                          XXXXXXX,    KC_F7,        KC_F8,        KC_F9,        KC_F12,          XXXXXXX,
+    _______,  KC_LEFT_CTRL,    KC_LEFT_SHIFT,    KC_LEFT_ALT,    KC_LEFT_GUI,  XXXXXXX,                                          XXXXXXX,     KC_F4,        KC_F5,        KC_F6,        KC_F11,    XXXXXXX,
+    _______,          XXXXXXX,          XXXXXXX,          XXXXXXX,          CKC_MEH,          CKC_HYPER,                                          XXXXXXX,    KC_F7,        KC_F8,        KC_F9,        KC_F12,          XXXXXXX,
                                    _______, _______,    _______,  _______,  _______, _______,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______
     ),
