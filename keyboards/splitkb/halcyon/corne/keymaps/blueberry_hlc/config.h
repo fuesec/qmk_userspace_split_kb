@@ -29,5 +29,6 @@
 #define HSS(report) host_system_send(record->event.pressed ? report : 0); return false
 #define HCS(report) host_consumer_send(record->event.pressed ? report : 0); return false
 
+#define CIRQUE_PINNACLE_TAP_ENABLE
 #define CIRQUE_PINNACLE_SECONDARY_TAP_ENABLE
 
