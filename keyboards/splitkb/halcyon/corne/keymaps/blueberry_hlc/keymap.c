@@ -3,18 +3,39 @@
 #    include "keymap.h"
 #endif
 
-enum custom_keycodes {
-  MAC_DO_NOT_DISTURB = SAFE_RANGE,
+#pragma region - layer names
+
+enum layer_names {
+    LAYER_BASE,
+    LAYER_NAVIGATION,
+    LAYER_SPECIAL_CHARACTERS,
+    LAYER_NUMPAD,
+	LAYER_FUNCTION_KEYS,
+	LAYER_SYSTEM,
 };
 
-#define MEH_KEY  (LCTL(LSFT(LALT(KC_NO))))
-#define HYPER_KEY (LCTL(LSFT(LALT(LGUI(KC_NO)))))
+#pragma endregion
 
-#define MAC_LOCK LGUI(LCTL(KC_Q))
-#define MAC_SLEEP LALT(LGUI(KC_MEDIA_EJECT))
-#define MAC_SCREENSHOT LGUI(LSFT(KC_3))
-#define MAC_SCREENSHOT_AREA LGUI(LSFT(KC_4))
-#define MAC_SLEEP_DISPLAY LCTL(LSFT(KC_MEDIA_EJECT))
+#pragma region - CKC custom key codes
+
+enum custom_keycodes {
+  CKC_MAC_DO_NOT_DISTURB = SAFE_RANGE,
+  CKC_MOUSE_JIGGLE
+};
+
+#define CKC_MEH  (LCTL(LSFT(LALT(KC_NO))))
+#define CKC_HYPER (LCTL(LSFT(LALT(LGUI(KC_NO)))))
+
+#define CKC_MAC_BACK LGUI(KC_LBRC)
+#define CKC_MAC_FORWARD LGUI(KC_RBRC)
+
+#define CKC_MAC_LOCK LGUI(LCTL(KC_Q))
+#define CKC_MAC_SLEEP LALT(LGUI(KC_MEDIA_EJECT))
+#define CKC_MAC_SCREENSHOT LGUI(LSFT(KC_3))
+#define CKC_MAC_SCREENSHOT_AREA LGUI(LSFT(KC_4))
+#define CKC_MAC_SLEEP_DISPLAY LCTL(LSFT(KC_MEDIA_EJECT))
+
+#pragma endregion
 
 enum tap_dance_codes {
   DANCE_0, // switch to num pad layer
@@ -30,53 +51,48 @@ typedef union {
 
 user_config_t user_config;
 
-// _______ = KC_TRANSPARENT
-// XXXXXXX = KC_NO
 // QK_BOOT ??
 // tap dance: TD(DANCE_0)
-// old bottom layer:
-// RM_TOGG, RM_HUEU, RM_SATU, RM_VALU
-// RM_NEXT, RM_HUED, RM_SATD, RM_VALD
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
-[0] = LAYOUT_corne_hlc(
+[LAYER_BASE] = LAYOUT_corne_hlc(
         KC_ESCAPE,  	KC_Q,    KC_W,  KC_E,    KC_R,  KC_T,		KC_Y,    KC_U,  KC_I,    KC_O,   KC_P,    KC_BSPC,
         KC_TAB, 		KC_A,    KC_S,  KC_D,    KC_F,  KC_G,   	KC_H,    KC_J,  KC_K,    KC_L,   KC_SCLN, KC_ENTER,
-        XXXXXXX, 	KC_Z,    KC_X,  KC_C,    KC_V,  KC_B,   	KC_N,    KC_M,  KC_COMM, KC_DOT, KC_SLSH, CW_TOGG,
-                                 MO(4), MO(3), 	 MO(1), MO(2),  	KC_SPACE,      MO(5),
+        KC_CAPS_LOCK, 	KC_Z,    KC_X,  KC_C,    KC_V,  KC_B,   	KC_N,    KC_M,  KC_COMM, KC_DOT, KC_SLSH, QK_CAPS_WORD_TOGGLE,
+                                 MO(LAYER_FUNCTION_KEYS), MO(LAYER_NUMPAD), 	 MO(LAYER_NAVIGATION), MO(LAYER_SPECIAL_CHARACTERS),  	KC_SPACE,      MO(LAYER_SYSTEM),
                  KC_MUTE, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, KC_MUTE, 	XXXXXXX,   XXXXXXX,   XXXXXXX,  XXXXXXX
     ),
-[1] = LAYOUT_corne_hlc(
-        _______,  XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_HOME,   LGUI(KC_LBRC),  LGUI(KC_RBRC),  XXXXXXX,          XXXXXXX,          _______,
-    _______, KC_LEFT_CTRL,    KC_LEFT_SHIFT,    KC_LEFT_ALT,    KC_LEFT_GUI,  HYPER_KEY,                                  KC_END,         KC_LEFT,        KC_RIGHT,       KC_DOWN,        KC_UP,          _______,
-    _______,          XXXXXXX,          XXXXXXX,          XXXXXXX,          MEH_KEY,   XXXXXXX,                                          XXXXXXX,          LGUI(LSFT(KC_LBRC)),LGUI(LSFT(KC_RBRC)),KC_PGDN,        KC_PAGE_UP,     _______,
+[LAYER_NAVIGATION] = LAYOUT_corne_hlc(
+        _______,  XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX,    KC_HOME,   CKC_MAC_BACK,  CKC_MAC_FORWARD,  XXXXXXX,          XXXXXXX,          _______,
+    _______, KC_LEFT_CTRL,    KC_LEFT_SHIFT,    KC_LEFT_ALT,    KC_LEFT_GUI,  CKC_HYPER_KEY,                                  KC_END,         KC_LEFT,        KC_RIGHT,       KC_DOWN,        KC_UP,          _______,
+    _______,          XXXXXXX,          XXXXXXX,          XXXXXXX,          CKC_MEH_KEY,   XXXXXXX,                                          XXXXXXX,          LGUI(LSFT(KC_LBRC)),LGUI(LSFT(KC_RBRC)),KC_PGDN,        KC_PAGE_UP,     _______,
                                    _______, _______,    _______,  _______,  _______, _______,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______
     ),
-[2] = LAYOUT_corne_hlc(
-    _______, KC_GRAVE,       KC_LBRC,        KC_LCBR,        KC_LPRN,        KC_KP_ASTERISK,                                 KC_PERC,        KC_RPRN,        KC_RCBR,        KC_RBRC,        KC_TILD,        _______,
-    _______, KC_DQUO,        KC_EXLM,        KC_KP_EQUAL,    KC_KP_MINUS,    KC_HASH,                                        HYPER_KEY, KC_RIGHT_GUI,  KC_RIGHT_ALT,  KC_RIGHT_SHIFT,  KC_RIGHT_CTRL,  _______,
-    _______, KC_QUOTE,       KC_AT,          KC_KP_PLUS,     KC_UNDS,        KC_CIRC,                                        XXXXXXX,   MEH_KEY, KC_AMPR,        KC_PIPE,        KC_BSLS,        _______,
+[LAYER_SPECIAL_CHARACTERS] = LAYOUT_corne_hlc(
+    _______, KC_GRAVE,       KC_LEFT_BRACKET,        KC_LEFT_CURLY_BRACE,        KC_LEFT_PAREN,        KC_KP_ASTERISK,                                 KC_PERCENT,        KC_RIGHT_PAREN,        KC_RIGHT_CURLY_BRACE,        KC_RIGHT_BRACKET,        KC_TILDE,        _______,
+    _______, KC_DOUBLE_QUOTE,        KC_EXCLAIM,        KC_KP_EQUAL,    KC_KP_MINUS,    KC_HASH,                                        CKC_HYPER, KC_RIGHT_GUI,  KC_RIGHT_ALT,  KC_RIGHT_SHIFT,  KC_RIGHT_CTRL,  _______,
+    _______, KC_QUOTE,       KC_AT,          KC_KP_PLUS,     KC_UNDERSCORE,        KC_CIRCUMFLEX,                                        KC_DOLLAR,   CKC_MEH, KC_AMPERSAND,        KC_PIPE,        KC_BACKSLASH,        _______,
                                    _______, _______,    _______,  _______,  _______, _______,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
-[3] = LAYOUT_corne_hlc(
+[LAYER_NUMPAD] = LAYOUT_corne_hlc(
     _______, XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX,                                          KC_0,        KC_1,        KC_2,        KC_3,        KC_KP_DOT, KC_KP_ASTERISK,
-    _______, KC_LEFT_CTRL,    KC_LEFT_SHIFT,    KC_LEFT_ALT,    KC_LEFT_GUI,  HYPER_KEY,                                           KC_KP_PLUS,     KC_4,        KC_5,        KC_6,        KC_KP_COMMA,    KC_KP_SLASH,
-    _______,          XXXXXXX,          XXXXXXX,          XXXXXXX,          MEH_KEY,          XXXXXXX,                                          KC_KP_MINUS,    KC_7,        KC_8,        KC_9,        KC_KP_EQUAL,          XXXXXXX,
+    _______, KC_LEFT_CTRL,    KC_LEFT_SHIFT,    KC_LEFT_ALT,    KC_LEFT_GUI,  CKC_HYPER_KEY,                                           KC_KP_PLUS,     KC_4,        KC_5,        KC_6,        KC_KP_COMMA,    KC_KP_SLASH,
+    _______,          XXXXXXX,          XXXXXXX,          XXXXXXX,          CKC_MEH_KEY,          XXXXXXX,                                          KC_KP_MINUS,    KC_7,        KC_8,        KC_9,        KC_KP_EQUAL,          XXXXXXX,
                                    _______, _______,    _______,  _______,  _______, _______,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______
     ),
-[4] = LAYOUT_corne_hlc(
+[LAYER_FUNCTION_KEYS] = LAYOUT_corne_hlc(
     _______, XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,                                          XXXXXXX,        KC_F1,        KC_F2,        KC_F3,        KC_F10, XXXXXXX,
-    _______,  KC_LEFT_CTRL,    KC_LEFT_SHIFT,    KC_LEFT_ALT,    KC_LEFT_GUI,  HYPER_KEY,                                          XXXXXXX,     KC_F4,        KC_F5,        KC_F6,        KC_F11,    XXXXXXX,
-    _______,          XXXXXXX,          XXXXXXX,          XXXXXXX,          MEH_KEY,          XXXXXXX,                                          XXXXXXX,    KC_F7,        KC_F8,        KC_F9,        KC_F12,          XXXXXXX,
+    _______,  KC_LEFT_CTRL,    KC_LEFT_SHIFT,    KC_LEFT_ALT,    KC_LEFT_GUI,  CKC_HYPER_KEY,                                          XXXXXXX,     KC_F4,        KC_F5,        KC_F6,        KC_F11,    XXXXXXX,
+    _______,          XXXXXXX,          XXXXXXX,          XXXXXXX,          CKC_MEH_KEY,          XXXXXXX,                                          XXXXXXX,    KC_F7,        KC_F8,        KC_F9,        KC_F12,          XXXXXXX,
                                    _______, _______,    _______,  _______,  _______, _______,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______
     ),
-[5] = LAYOUT_corne_hlc(
-    XXXXXXX,          KC_MEDIA_PREV_TRACK,KC_MEDIA_NEXT_TRACK,KC_MEDIA_STOP,  KC_MEDIA_PLAY_PAUSE,XXXXXXX,                                XXXXXXX,          MAC_SCREENSHOT,          MAC_SCREENSHOT_AREA,          XXXXXXX,          XXXXXXX,          XXXXXXX,
+[LAYER_SYSTEM] = LAYOUT_corne_hlc(
+    CKC_MOUSE_JIGGLE,          KC_MEDIA_PREV_TRACK,KC_MEDIA_NEXT_TRACK,KC_MEDIA_STOP,  KC_MEDIA_PLAY_PAUSE,XXXXXXX,                                XXXXXXX,          CKC_MAC_SCREENSHOT,          CKC_MAC_SCREENSHOT_AREA,          XXXXXXX,          XXXXXXX,          XXXXXXX,
     XXXXXXX,         KC_BRIGHTNESS_DOWN,KC_BRIGHTNESS_UP,KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,KC_AUDIO_MUTE,                                          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,
-    XXXXXXX,          MAC_SLEEP_DISPLAY, MAC_DO_NOT_DISTURB,       MAC_SLEEP,MAC_LOCK, XXXXXXX,                                 XXXXXXX,          RM_TOGG,          RM_NEXT,          XXXXXXX,          XXXXXXX,          XXXXXXX,
+    XXXXXXX,          CKC_MAC_SLEEP_DISPLAY, CKC_MAC_DO_NOT_DISTURB,       CKC_MAC_SLEEP,CKC_MAC_LOCK, XXXXXXX,                                 XXXXXXX,          QK_RGB_MATRIX_TOGGLE,          QK_RGB_MATRIX_MODE_NEXT,          XXXXXXX,          XXXXXXX,          XXXXXXX,
                                    _______, _______,    _______,  _______,  XXXXXXX, XXXXXXX,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )};
@@ -96,8 +112,35 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 #endif // OTHER_KEYMAP_C
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    if (record->event.pressed) {
+    static deferred_token token = INVALID_DEFERRED_TOKEN;
+    static report_mouse_t report = {0};
+    if (token) {
+      // If jiggler is currently running, stop when any key is pressed.
+      cancel_deferred_exec(token);
+      token = INVALID_DEFERRED_TOKEN;
+      report = (report_mouse_t){};  // Clear the mouse.
+      host_mouse_send(&report);
+    } else if (keycode == CKC_MOUSE_JIGGLE) {
+      uint32_t jiggler_callback(uint32_t trigger_time, void* cb_arg) {
+        // Deltas to move in a circle of radius 20 pixels over 32 frames.
+        static const int8_t deltas[32] = {
+            0, -1, -2, -2, -3, -3, -4, -4, -4, -4, -3, -3, -2, -2, -1, 0,
+            0, 1, 2, 2, 3, 3, 4, 4, 4, 4, 3, 3, 2, 2, 1, 0};
+        static uint8_t phase = 0;
+        // Get x delta from table and y delta by rotating a quarter cycle.
+        report.x = deltas[phase];
+        report.y = deltas[(phase + 8) & 31];
+        phase = (phase + 1) & 31;
+        host_mouse_send(&report);
+        return 16;  // Call the callback every 16 ms.
+      }
+
+      token = defer_exec(1, jiggler_callback, NULL);  // Schedule callback.
+    }
+  }
   switch (keycode) {
-    case MAC_DO_NOT_DISTURB:
+    case CKC_MAC_DO_NOT_DISTURB:
       HSS(0x9B);
       return false;
   }
