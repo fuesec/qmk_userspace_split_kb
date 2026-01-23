@@ -26,7 +26,7 @@ enum custom_keycodes {
   OS_SHFT,
   OS_CTRL,
   OS_ALT,
-  sOS_CMD,
+  OS_CMD,
 };
 
 #define CKC_MEH  (LCTL(LSFT(LALT(KC_NO))))
@@ -75,28 +75,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 [LAYER_NAVIGATION] = LAYOUT_corne_hlc(
         _______,  QK_MOUSE_WHEEL_LEFT,    QK_MOUSE_WHEEL_RIGHT,    QK_MOUSE_BUTTON_2,    QK_MOUSE_BUTTON_1,    QK_MOUSE_WHEEL_UP,    KC_HOME,   CKC_MAC_BACK,  CKC_MAC_FORWARD,  XXXXXXX,          XXXXXXX,          _______,
-    _______, OS_CTRL,    OS_SHIFT,    OS_ALT,    OS_CMD,  QK_MOUSE_WHEEL_DOWN,                                  KC_END,         KC_LEFT,        KC_RIGHT,       KC_DOWN,        KC_UP,          _______,
+    _______, OS_CTRL,    OS_SHFT,    OS_ALT,    OS_CMD,  QK_MOUSE_WHEEL_DOWN,                                  KC_END,         KC_LEFT,        KC_RIGHT,       KC_DOWN,        KC_UP,          _______,
     _______,          XXXXXXX,          XXXXXXX,          XXXXXXX,          CKC_MEH,   CKC_HYPER,                                          XXXXXXX,          LGUI(LSFT(KC_LBRC)),LGUI(LSFT(KC_RBRC)),KC_PAGE_DOWN,        KC_PAGE_UP,     _______,
                                    _______, _______,    _______,  _______,  _______, _______,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______
     ),
 [LAYER_SPECIAL_CHARACTERS] = LAYOUT_corne_hlc(
     _______, KC_GRAVE,       KC_LEFT_BRACKET,        KC_LEFT_CURLY_BRACE,        KC_LEFT_PAREN,        KC_KP_ASTERISK,                                 KC_PERCENT,        KC_RIGHT_PAREN,        KC_RIGHT_CURLY_BRACE,        KC_RIGHT_BRACKET,        KC_TILDE,        _______,
-    _______, KC_DOUBLE_QUOTE,        KC_EXCLAIM,        KC_KP_EQUAL,    KC_KP_MINUS,    KC_HASH,                                        KC_DOLLAR, OS_CMD,  OS_ALT,  OS_SHIFT,  OS_CTRL,  _______,
+    _______, KC_DOUBLE_QUOTE,        KC_EXCLAIM,        KC_KP_EQUAL,    KC_KP_MINUS,    KC_HASH,                                        KC_DOLLAR, OS_CMD,  OS_ALT,  OS_SHFT,  OS_CTRL,  _______,
     _______, KC_QUOTE,       KC_AT,          KC_KP_PLUS,     KC_UNDERSCORE,        KC_CIRCUMFLEX,                                        CKC_HYPER,   CKC_MEH, KC_AMPERSAND,        KC_PIPE,        KC_BACKSLASH,        _______,
                                    _______, _______,    _______,  _______,  _______, _______,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 [LAYER_NUMPAD] = LAYOUT_corne_hlc(
     _______, XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX,                                          KC_0,        KC_1,        KC_2,        KC_3,        KC_KP_DOT, KC_KP_ASTERISK,
-    _______, OS_CTRL,    OS_SHIFT,    OS_ALT,    OS_CMD,  XXXXXXX,                                           KC_KP_PLUS,     KC_4,        KC_5,        KC_6,        KC_KP_COMMA,    KC_KP_SLASH,
+    _______, OS_CTRL,    OS_SHFT,    OS_ALT,    OS_CMD,  XXXXXXX,                                           KC_KP_PLUS,     KC_4,        KC_5,        KC_6,        KC_KP_COMMA,    KC_KP_SLASH,
     _______,          XXXXXXX,          XXXXXXX,          XXXXXXX,          CKC_MEH,          CKC_HYPER,                                          KC_KP_MINUS,    KC_7,        KC_8,        KC_9,        KC_KP_EQUAL,          XXXXXXX,
                                    _______, _______,    _______,  _______,  _______, _______,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______
     ),
 [LAYER_FUNCTION_KEYS] = LAYOUT_corne_hlc(
     _______, XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,                                          XXXXXXX,        KC_F1,        KC_F2,        KC_F3,        KC_F10, XXXXXXX,
-    _______,  OS_CTRL,    OS_SHIFT,    OS_ALT,    OS_CMD,  XXXXXXX,                                          XXXXXXX,     KC_F4,        KC_F5,        KC_F6,        KC_F11,    XXXXXXX,
+    _______,  OS_CTRL,    OS_SHFT,    OS_ALT,    OS_CMD,  XXXXXXX,                                          XXXXXXX,     KC_F4,        KC_F5,        KC_F6,        KC_F11,    XXXXXXX,
     _______,          XXXXXXX,          XXXXXXX,          XXXXXXX,          CKC_MEH,          CKC_HYPER,                                          XXXXXXX,    KC_F7,        KC_F8,        KC_F9,        KC_F12,          XXXXXXX,
                                    _______, _______,    _______,  _______,  _______, _______,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______
