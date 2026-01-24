@@ -34,6 +34,8 @@ enum custom_keycodes {
 
 #define CKC_MAC_BACK LGUI(KC_LBRC)
 #define CKC_MAC_FORWARD LGUI(KC_RBRC)
+#define CKC_MAC_PREVIOUS_TAB LGUI(LSFT(KC_LEFT_BRACKET))
+#define CKC_MAC_NEXT_TAB LGUI(LSFT(KC_RIGHT_BRACKET))
 
 #define CKC_MAC_LOCK LGUI(LCTL(KC_Q))
 #define CKC_MAC_SLEEP LALT(LGUI(KC_MEDIA_EJECT))
@@ -74,9 +76,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_MUTE, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, 	XXXXXXX,   XXXXXXX,   XXXXXXX,  XXXXXXX
     ),
 [LAYER_NAVIGATION] = LAYOUT_corne_hlc(
-        _______,  QK_MOUSE_WHEEL_LEFT,    QK_MOUSE_WHEEL_RIGHT,    QK_MOUSE_BUTTON_2,    QK_MOUSE_BUTTON_1,    QK_MOUSE_WHEEL_UP,    KC_HOME,   CKC_MAC_BACK,  CKC_MAC_FORWARD,  XXXXXXX,          XXXXXXX,          _______,
-    _______, OS_CTRL,    OS_SHFT,    OS_ALT,    OS_CMD,  QK_MOUSE_WHEEL_DOWN,                                  KC_END,         KC_LEFT,        KC_RIGHT,       KC_DOWN,        KC_UP,          _______,
-    _______,          XXXXXXX,          XXXXXXX,          XXXXXXX,          CKC_MEH,   CKC_HYPER,                                          XXXXXXX,          LGUI(LSFT(KC_LBRC)),LGUI(LSFT(KC_RBRC)),KC_PAGE_DOWN,        KC_PAGE_UP,     _______,
+        _______,  QK_MOUSE_WHEEL_LEFT,    QK_MOUSE_WHEEL_RIGHT,    QK_MOUSE_BUTTON_2,    QK_MOUSE_BUTTON_1,    QK_MOUSE_WHEEL_UP,    KC_HOME,   CKC_MAC_BACK,  CKC_MAC_FORWARD,  XXXXXXX,          XXXXXXX,          SELECT_WORD_BACK,
+    _______, OS_CTRL,    OS_SHFT,    OS_ALT,    OS_CMD,  QK_MOUSE_WHEEL_DOWN,                                  KC_END,         KC_LEFT,        KC_RIGHT,       KC_DOWN,        KC_UP,          SELECT_WORD,
+    _______,          XXXXXXX,          XXXXXXX,          XXXXXXX,          CKC_MEH,   CKC_HYPER,                                          XXXXXXX,          CKC_MAC_PREVIOUS_TAB,CKC_MAC_NEXT_TAB,KC_PAGE_DOWN,        KC_PAGE_UP,     _______,
                                    _______, _______,    _______,  _______,  _______, _______,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______
     ),
@@ -103,8 +105,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 [LAYER_SYSTEM] = LAYOUT_corne_hlc(
     CKC_MOUSE_JIGGLE,          KC_MEDIA_PREV_TRACK,KC_MEDIA_NEXT_TRACK,KC_MEDIA_STOP,  KC_MEDIA_PLAY_PAUSE,XXXXXXX,                                XXXXXXX,          CKC_MAC_SCREENSHOT,          CKC_MAC_SCREENSHOT_AREA,          XXXXXXX,          XXXXXXX,          XXXXXXX,
-    XXXXXXX,         KC_BRIGHTNESS_DOWN,KC_BRIGHTNESS_UP,KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,KC_AUDIO_MUTE,                                          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,
-    XXXXXXX,          CKC_MAC_SLEEP_DISPLAY, CKC_MAC_DO_NOT_DISTURB,       CKC_MAC_SLEEP,CKC_MAC_LOCK, XXXXXXX,                                 XXXXXXX,          QK_RGB_MATRIX_TOGGLE,          QK_RGB_MATRIX_MODE_NEXT,          XXXXXXX,          XXXXXXX,          XXXXXXX,
+    XXXXXXX,         KC_BRIGHTNESS_DOWN,KC_BRIGHTNESS_UP,KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,KC_AUDIO_MUTE,                                          QK_RGB_MATRIX_TOGGLE,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,
+    XXXXXXX,          CKC_MAC_SLEEP_DISPLAY, CKC_MAC_DO_NOT_DISTURB,       CKC_MAC_SLEEP,CKC_MAC_LOCK, XXXXXXX,                                 LUMINO,          QK_RGB_MATRIX_MODE_PREVIOUS,          QK_RGB_MATRIX_MODE_NEXT,          QK_RGB_MATRIX_HUE_DOWN,          QK_RGB_MATRIX_HUE_UP,          XXXXXXX,
                                    _______, _______,    _______,  _______,  XXXXXXX, XXXXXXX,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )};
