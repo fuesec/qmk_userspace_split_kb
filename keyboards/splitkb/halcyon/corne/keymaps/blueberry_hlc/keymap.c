@@ -3,7 +3,7 @@
 #    include "keymap.h"
 #endif
 
-#include "oneshot.h"
+#include "custom_oneshot.h"
 
 #pragma region - layer names
 
