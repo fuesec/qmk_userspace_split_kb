@@ -5,7 +5,7 @@
 
 // #undef ONESHOT_TIMEOUT
 // #define ONESHOT_TIMEOUT 2500
-#define NO_ACTION_ONESHOT
+// #define NO_ACTION_ONESHOT
 
 #undef RGB_MATRIX_TIMEOUT
 #define RGB_MATRIX_TIMEOUT 180000 // 3 minutes
