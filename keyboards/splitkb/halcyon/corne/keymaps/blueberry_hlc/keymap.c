@@ -121,9 +121,9 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 [LAYER_SYSTEM] = {ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX)}};
 #endif // defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
 
-#ifdef OTHER_KEYMAP_C
-#    include OTHER_KEYMAP_C
-#endif // OTHER_KEYMAP_C
+// #ifdef OTHER_KEYMAP_C
+// #    include OTHER_KEYMAP_C
+// #endif // OTHER_KEYMAP_C
 
 bool is_oneshot_cancel_key(uint16_t keycode) {
     switch (keycode) {
