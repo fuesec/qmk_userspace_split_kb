@@ -151,7 +151,7 @@ oneshot_state os_cmd_state = os_up_unqueued;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 	if (keycode == CKC_MEH || keycode == CKC_HYPER) {
     	update_oneshot(
-        &os_shift_state, KC_LEFT_SHIFT, CKC_SHIFT, KC_LEFT_SHIFT, record
+        &os_shift_state, KC_LEFT_SHIFT, CKC_SHIFT, CKC_SHIFT, record
     );
 	} else {
 	    update_oneshot(
@@ -161,7 +161,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 	if (keycode == CKC_MEH || keycode == CKC_HYPER) {
     	update_oneshot(
-        &os_ctrl_state, KC_LEFT_CTRL, CKC_CTRL, KC_LEFT_CTRL, record
+        &os_ctrl_state, KC_LEFT_CTRL, CKC_CTRL, CKC_CTRL, record
     );
 	} else {
 	    update_oneshot(
@@ -171,7 +171,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 	if (keycode == CKC_MEH || keycode == CKC_HYPER) {
     	update_oneshot(
-        &os_alt_state, KC_LEFT_ALT, CKC_ALT, KC_LEFT_ALT, record
+        &os_alt_state, KC_LEFT_ALT, CKC_ALT, CKC_ALT, record
     );
 	} else {
 	    update_oneshot(
@@ -181,7 +181,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 
 	if (keycode == CKC_HYPER) {
     	update_oneshot(
-        &os_cmd_state, KC_LEFT_GUI, CKC_CMD, KC_LEFT_GUI, record
+        &os_cmd_state, KC_LEFT_GUI, CKC_CMD, CKC_CMD, record
     );
 	} else {
 	    update_oneshot(
