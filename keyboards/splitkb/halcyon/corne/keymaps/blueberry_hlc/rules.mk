@@ -1,6 +1,6 @@
 # rotary encoder
 ENCODER_ENABLE = yes
-ENCODER_MAP_ENABLE = yes
+ENCODER_MAP_ENABLE = no
 # for double key press etc.
 TAP_DANCE_ENABLE = yes
 # e.g. shift + backspace -> forward delete

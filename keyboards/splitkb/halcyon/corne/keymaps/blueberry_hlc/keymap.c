@@ -101,15 +101,15 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
 )};
 
-#if defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
-const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-[LAYER_BASE] = {ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX)},
-[LAYER_NAVIGATION] = {ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX)},
-[LAYER_SPECIAL_CHARACTERS] = {ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX)},
-[LAYER_NUMPAD] = {ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX)},
-[LAYER_FUNCTION_KEYS] = {ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX)},
-[LAYER_SYSTEM] = {ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX)}};
-#endif // defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
+// #if defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
+// const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
+// [LAYER_BASE] = {ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(QK_MOUSE_WHEEL_DOWN, QK_MOUSE_WHEEL_UP), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX)},
+// [LAYER_NAVIGATION] = {ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX)},
+// [LAYER_SPECIAL_CHARACTERS] = {ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX)},
+// [LAYER_NUMPAD] = {ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX)},
+// [LAYER_FUNCTION_KEYS] = {ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX)},
+// [LAYER_SYSTEM] = {ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX)}};
+// #endif // defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
 
 bool is_oneshot_cancel_key(uint16_t keycode) {
     switch (keycode) {
@@ -141,6 +141,42 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
     default:
         return false;
     }
+}
+
+bool encoder_update_user(uint8_t index, bool clockwise) {
+	if (index != 1) {
+		return false;
+	}
+    uint8_t mods = get_mods() | get_oneshot_mods();
+    switch (get_highest_layer(layer_state)) {
+        case LAYER_BASE:
+		case LAYER_NAVIGATION:
+		case LAYER_SPECIAL_CHARACTERS:
+		case LAYER_NUMPAD:
+		case LAYER_FUNCTION_KEYS:
+            if (mods & MOD_MASK_SHIFT) {
+                if (clockwise) {
+                    tap_code(QK_MOUSE_WHEEL_RIGHT);
+                } else {
+                    tap_code(QK_MOUSE_WHEEL_LEFT);
+                }
+            } else {
+                if (clockwise) {
+                    tap_code(QK_MOUSE_WHEEL_DOWN);
+                } else {
+                    tap_code(QK_MOUSE_WHEEL_UP);
+                }
+            }
+            break;
+        case LAYER_SYSTEM:
+            if (clockwise) {
+                tap_code(KC_VOLU);
+            } else {
+                tap_code(KC_VOLD);
+            }
+            break;
+    }
+    return false;
 }
 
 oneshot_state os_shift_state = os_up_unqueued;
