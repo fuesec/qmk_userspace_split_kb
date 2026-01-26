@@ -16,14 +16,13 @@ enum layer_names {
 enum custom_keycodes {
   CKC_MAC_DO_NOT_DISTURB = SAFE_RANGE,
   CKC_MOUSE_JIGGLE,
-  OS_SHFT,
-  OS_CTRL,
-  OS_ALT,
-  OS_CMD,
+  CKC_SHIFT,
+  CKC_CTRL,
+  CKC_ALT,
+  CKC_CMD,
+  CKC_MEH,
+  CKC_HYPER,
 };
-
-#define CKC_MEH  (LCTL(LSFT(LALT(KC_NO))))
-#define CKC_HYPER (LCTL(LSFT(LALT(LGUI(KC_NO)))))
 
 #define CKC_MAC_BACK LGUI(KC_LBRC)
 #define CKC_MAC_FORWARD LGUI(KC_RBRC)
@@ -68,28 +67,28 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 [LAYER_NAVIGATION] = LAYOUT_corne_hlc(
         _______,  QK_MOUSE_WHEEL_LEFT,    QK_MOUSE_WHEEL_RIGHT,    QK_MOUSE_BUTTON_2,    QK_MOUSE_BUTTON_1,    QK_MOUSE_WHEEL_UP,    KC_HOME,   CKC_MAC_BACK,  CKC_MAC_FORWARD,  XXXXXXX,          XXXXXXX,          SELECT_WORD_BACK,
-    _______, OS_CTRL,    OS_SHFT,    OS_ALT,    OS_CMD,  QK_MOUSE_WHEEL_DOWN,                                  KC_END,         KC_LEFT,        KC_RIGHT,       KC_DOWN,        KC_UP,          SELECT_WORD,
+    _______, CKC_CTRL,    CKC_SHIFT,    CKC_ALT,    CKC_CMD,  QK_MOUSE_WHEEL_DOWN,                                  KC_END,         KC_LEFT,        KC_RIGHT,       KC_DOWN,        KC_UP,          SELECT_WORD,
     _______,          XXXXXXX,          XXXXXXX,          XXXXXXX,          CKC_MEH,   CKC_HYPER,                                          XXXXXXX,          CKC_MAC_PREVIOUS_TAB,CKC_MAC_NEXT_TAB,KC_PAGE_DOWN,        KC_PAGE_UP,     _______,
                                    _______, _______,    _______,  _______,  _______, _______,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______
     ),
 [LAYER_SPECIAL_CHARACTERS] = LAYOUT_corne_hlc(
     _______, KC_GRAVE,       KC_LEFT_BRACKET,        KC_LEFT_CURLY_BRACE,        KC_LEFT_PAREN,        KC_KP_ASTERISK,                                 KC_PERCENT,        KC_RIGHT_PAREN,        KC_RIGHT_CURLY_BRACE,        KC_RIGHT_BRACKET,        KC_TILDE,        _______,
-    _______, KC_DOUBLE_QUOTE,        KC_EXCLAIM,        KC_KP_EQUAL,    KC_KP_MINUS,    KC_HASH,                                        KC_DOLLAR, OS_CMD,  OS_ALT,  OS_SHFT,  OS_CTRL,  _______,
+    _______, KC_DOUBLE_QUOTE,        KC_EXCLAIM,        KC_KP_EQUAL,    KC_KP_MINUS,    KC_HASH,                                        KC_DOLLAR, CKC_CMD,  CKC_ALT,  CKC_SHIFT,  CKC_CTRL,  _______,
     _______, KC_QUOTE,       KC_AT,          KC_KP_PLUS,     KC_UNDERSCORE,        KC_CIRCUMFLEX,                                        CKC_HYPER,   CKC_MEH, KC_AMPERSAND,        KC_PIPE,        KC_BACKSLASH,        _______,
                                    _______, _______,    _______,  _______,  _______, _______,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 [LAYER_NUMPAD] = LAYOUT_corne_hlc(
     _______, XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX,                                          KC_0,        KC_1,        KC_2,        KC_3,        KC_KP_DOT, KC_KP_ASTERISK,
-    _______, OS_CTRL,    OS_SHFT,    OS_ALT,    OS_CMD,  XXXXXXX,                                           KC_KP_PLUS,     KC_4,        KC_5,        KC_6,        KC_KP_COMMA,    KC_KP_SLASH,
+    _______, CKC_CTRL,    CKC_SHIFT,    CKC_ALT,    CKC_CMD,  XXXXXXX,                                           KC_KP_PLUS,     KC_4,        KC_5,        KC_6,        KC_KP_COMMA,    KC_KP_SLASH,
     _______,          XXXXXXX,          XXXXXXX,          XXXXXXX,          CKC_MEH,          CKC_HYPER,                                          KC_KP_MINUS,    KC_7,        KC_8,        KC_9,        KC_KP_EQUAL,          XXXXXXX,
                                    _______, _______,    _______,  _______,  _______, _______,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______
     ),
 [LAYER_FUNCTION_KEYS] = LAYOUT_corne_hlc(
     _______, XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,                                          XXXXXXX,        KC_F1,        KC_F2,        KC_F3,        KC_F10, XXXXXXX,
-    _______,  OS_CTRL,    OS_SHFT,    OS_ALT,    OS_CMD,  XXXXXXX,                                          XXXXXXX,     KC_F4,        KC_F5,        KC_F6,        KC_F11,    XXXXXXX,
+    _______,  CKC_CTRL,    CKC_SHIFT,    CKC_ALT,    CKC_CMD,  XXXXXXX,                                          XXXXXXX,     KC_F4,        KC_F5,        KC_F6,        KC_F11,    XXXXXXX,
     _______,          XXXXXXX,          XXXXXXX,          XXXXXXX,          CKC_MEH,          CKC_HYPER,                                          XXXXXXX,    KC_F7,        KC_F8,        KC_F9,        KC_F12,          XXXXXXX,
                                    _______, _______,    _______,  _______,  _______, _______,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______
@@ -104,7 +103,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 #if defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
 const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
-[LAYER_BASE] = {ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX)},
+[LAYER_BASE] = {ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(KC_VOLD, KC_VOLU), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX)},
 [LAYER_NAVIGATION] = {ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX)},
 [LAYER_SPECIAL_CHARACTERS] = {ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX)},
 [LAYER_NUMPAD] = {ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX)},
@@ -132,38 +131,64 @@ bool is_oneshot_ignored_key(uint16_t keycode) {
     case CKC_MO_LAYER_NUMPAD:
     case CKC_MO_LAYER_FUNCTION_KEYS:
     case CKC_MO_LAYER_SYSTEM:
-    case OS_SHFT:
-    case OS_CTRL:
-    case OS_ALT:
-    case OS_CMD:
+    case CKC_SHIFT:
+    case CKC_CTRL:
+    case CKC_ALT:
+    case CKC_CMD:
+    case CKC_MEH:
+	case CKC_HYPER:
         return true;
     default:
         return false;
     }
 }
 
-oneshot_state os_shft_state = os_up_unqueued;
+oneshot_state os_shift_state = os_up_unqueued;
 oneshot_state os_ctrl_state = os_up_unqueued;
 oneshot_state os_alt_state = os_up_unqueued;
 oneshot_state os_cmd_state = os_up_unqueued;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-    update_oneshot(
-        &os_shft_state, KC_LSFT, OS_SHFT,
-        keycode, record
+	if (keycode == CKC_MEH || keycode == CKC_HYPER) {
+    	update_oneshot(
+        &os_shift_state, KC_LEFT_SHIFT, CKC_SHIFT, KC_LEFT_SHIFT, record
     );
-    update_oneshot(
-        &os_ctrl_state, KC_LCTL, OS_CTRL,
-        keycode, record
+	} else {
+	    update_oneshot(
+        &os_shift_state, KC_LEFT_SHIFT, CKC_SHIFT, keycode, record
     );
-    update_oneshot(
-        &os_alt_state, KC_LALT, OS_ALT,
-        keycode, record
+	}
+
+	if (keycode == CKC_MEH || keycode == CKC_HYPER) {
+    	update_oneshot(
+        &os_ctrl_state, KC_LEFT_CTRL, CKC_CTRL, KC_LEFT_CTRL, record
     );
-    update_oneshot(
-        &os_cmd_state, KC_LCMD, OS_CMD,
-        keycode, record
+	} else {
+	    update_oneshot(
+        &os_ctrl_state, KC_LEFT_CTRL, CKC_CTRL, keycode, record
     );
+	}
+
+	if (keycode == CKC_MEH || keycode == CKC_HYPER) {
+    	update_oneshot(
+        &os_alt_state, KC_LEFT_ALT, CKC_ALT, KC_LEFT_ALT, record
+    );
+	} else {
+	    update_oneshot(
+        &os_alt_state, KC_LEFT_ALT, CKC_ALT, keycode, record
+    );
+	}
+
+	if (keycode == CKC_HYPER) {
+    	update_oneshot(
+        &os_cmd_state, KC_LEFT_GUI, CKC_CMD, KC_LEFT_GUI, record
+    );
+	} else {
+	    update_oneshot(
+        &os_cmd_state, KC_LEFT_GUI, CKC_CMD, keycode, record
+    );
+	}
+
     if (record->event.pressed) {
     static deferred_token token = INVALID_DEFERRED_TOKEN;
     static report_mouse_t report = {0};
