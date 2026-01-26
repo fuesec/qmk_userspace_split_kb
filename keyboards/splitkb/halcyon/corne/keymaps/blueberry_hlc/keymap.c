@@ -1,11 +1,8 @@
 #include QMK_KEYBOARD_H
+#include "custom_oneshot.h"
 #if __has_include("keymap.h")
 #    include "keymap.h"
 #endif
-
-#include "custom_oneshot.h"
-
-#pragma region - layer names
 
 enum layer_names {
     LAYER_BASE,
@@ -15,10 +12,6 @@ enum layer_names {
 	LAYER_FUNCTION_KEYS,
 	LAYER_SYSTEM,
 };
-
-#pragma endregion
-
-#pragma region - CKC custom key codes
 
 enum custom_keycodes {
   CKC_MAC_DO_NOT_DISTURB = SAFE_RANGE,
@@ -48,8 +41,6 @@ enum custom_keycodes {
 #define CKC_MO_LAYER_NUMPAD MO(LAYER_NUMPAD)
 #define CKC_MO_LAYER_FUNCTION_KEYS MO(LAYER_FUNCTION_KEYS)
 #define CKC_MO_LAYER_SYSTEM MO(LAYER_SYSTEM)
-
-#pragma endregion
 
 enum tap_dance_codes {
   DANCE_0, // switch to num pad layer
@@ -120,10 +111,6 @@ const uint16_t PROGMEM encoder_map[][NUM_ENCODERS][NUM_DIRECTIONS] = {
 [LAYER_FUNCTION_KEYS] = {ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX)},
 [LAYER_SYSTEM] = {ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX), ENCODER_CCW_CW(XXXXXXX, XXXXXXX)}};
 #endif // defined(ENCODER_ENABLE) && defined(ENCODER_MAP_ENABLE)
-
-// #ifdef OTHER_KEYMAP_C
-// #    include OTHER_KEYMAP_C
-// #endif // OTHER_KEYMAP_C
 
 bool is_oneshot_cancel_key(uint16_t keycode) {
     switch (keycode) {
