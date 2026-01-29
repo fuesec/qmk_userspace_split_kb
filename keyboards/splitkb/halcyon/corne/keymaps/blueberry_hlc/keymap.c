@@ -34,12 +34,15 @@ enum custom_keycodes {
 #define CKC_MAC_SCREENSHOT LGUI(LSFT(KC_3))
 #define CKC_MAC_SCREENSHOT_AREA LGUI(LSFT(KC_4))
 #define CKC_MAC_SLEEP_DISPLAY LCTL(LSFT(KC_MEDIA_EJECT))
+#define CKC_MAC_INTELLIJ_TOOLWINDOW_TAB_LEFT LCTL(KC_LEFT)
+#define CKC_MAC_INTELLIJ_TOOLWINDOW_TAB_RIGHT LCTL(KC_RIGHT)
 
 #define CKC_MO_LAYER_NAVIGATION MO(LAYER_NAVIGATION)
 #define CKC_MO_LAYER_SPECIAL_CHARACTERS MO(LAYER_SPECIAL_CHARACTERS)
 #define CKC_MO_LAYER_NUMPAD MO(LAYER_NUMPAD)
 #define CKC_MO_LAYER_FUNCTION_KEYS MO(LAYER_FUNCTION_KEYS)
 #define CKC_MO_LAYER_SYSTEM MO(LAYER_SYSTEM)
+
 
 enum tap_dance_codes {
   DANCE_0, // switch to num pad layer
@@ -66,30 +69,30 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  KC_MUTE, XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, XXXXXXX, 	XXXXXXX,   XXXXXXX,   XXXXXXX,  XXXXXXX
     ),
 [LAYER_NAVIGATION] = LAYOUT_corne_hlc(
-        _______,  QK_MOUSE_WHEEL_LEFT,    QK_MOUSE_WHEEL_RIGHT,    QK_MOUSE_BUTTON_2,    QK_MOUSE_BUTTON_1,    QK_MOUSE_WHEEL_UP,    KC_HOME,   CKC_MAC_BACK,  CKC_MAC_FORWARD,  XXXXXXX,          XXXXXXX,          SELECT_WORD_BACK,
+        _______,  QK_MOUSE_WHEEL_LEFT,    QK_MOUSE_WHEEL_RIGHT,    QK_MOUSE_BUTTON_2,    QK_MOUSE_BUTTON_1,    QK_MOUSE_WHEEL_UP,    KC_HOME,   CKC_MAC_BACK,  CKC_MAC_FORWARD,  CKC_MAC_INTELLIJ_TOOLWINDOW_TAB_LEFT,          CKC_MAC_INTELLIJ_TOOLWINDOW_TAB_RIGHT,          SELECT_WORD_BACK,
     _______, CKC_CTRL,    CKC_SHIFT,    CKC_ALT,    CKC_CMD,  QK_MOUSE_WHEEL_DOWN,                                  KC_END,         KC_LEFT,        KC_RIGHT,       KC_DOWN,        KC_UP,          SELECT_WORD,
-    CKC_MEH,          KC_LEFT_CTRL,          KC_LEFT_SHIFT,          KC_LEFT_ALT,          KC_LEFT_GUI,   CKC_HYPER,                                          XXXXXXX,          CKC_MAC_PREVIOUS_TAB,CKC_MAC_NEXT_TAB,KC_PAGE_DOWN,        KC_PAGE_UP,     _______,
+KC_LEFT_CTRL,          KC_LEFT_SHIFT,          KC_LEFT_ALT,          KC_LEFT_GUI,    CKC_MEH,   CKC_HYPER,                                          XXXXXXX,          CKC_MAC_PREVIOUS_TAB,CKC_MAC_NEXT_TAB,KC_PAGE_DOWN,        KC_PAGE_UP,     _______,
                                    _______, _______,    _______,  _______,  _______, _______,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______
     ),
 [LAYER_SPECIAL_CHARACTERS] = LAYOUT_corne_hlc(
     _______, KC_GRAVE,       KC_LEFT_BRACKET,        KC_LEFT_CURLY_BRACE,        KC_LEFT_PAREN,        KC_KP_ASTERISK,                                 KC_PERCENT,        KC_RIGHT_PAREN,        KC_RIGHT_CURLY_BRACE,        KC_RIGHT_BRACKET,        KC_TILDE,        XXXXXXX,
     _______, KC_DOUBLE_QUOTE,        KC_EXCLAIM,        KC_KP_EQUAL,    KC_KP_MINUS,    KC_HASH,                                        KC_DOLLAR, CKC_CMD,  CKC_ALT,  CKC_SHIFT,  CKC_CTRL,  XXXXXXX,
-    XXXXXXX, KC_QUOTE,       KC_AT,          KC_KP_PLUS,     KC_UNDERSCORE,        KC_CIRCUMFLEX,                                        CKC_HYPER,   XXXXXXX, KC_AMPERSAND,        KC_PIPE,        KC_BACKSLASH,        CKC_MEH,
+    XXXXXXX, KC_QUOTE,       KC_AT,          KC_KP_PLUS,     KC_UNDERSCORE,        KC_CIRCUMFLEX,                                        CKC_HYPER,   CKC_MEH, KC_AMPERSAND,        KC_PIPE,        KC_BACKSLASH,        XXXXXXX,
                                    _______, _______,    _______,  _______,  _______, _______,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______, _______
     ),
 [LAYER_NUMPAD] = LAYOUT_corne_hlc(
     _______, XXXXXXX,    XXXXXXX,    XXXXXXX,    XXXXXXX, XXXXXXX,                                          KC_0,        KC_1,        KC_2,        KC_3,        KC_KP_DOT, KC_KP_ASTERISK,
     _______, CKC_CTRL,    CKC_SHIFT,    CKC_ALT,    CKC_CMD,  XXXXXXX,                                           KC_KP_PLUS,     KC_4,        KC_5,        KC_6,        KC_KP_COMMA,    KC_KP_SLASH,
-    CKC_MEH,          KC_LEFT_CTRL,          KC_LEFT_SHIFT,          KC_LEFT_ALT,          KC_LEFT_GUI,          CKC_HYPER,                                          KC_KP_MINUS,    KC_7,        KC_8,        KC_9,        KC_KP_EQUAL,          XXXXXXX,
+    XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX, CKC_MEH,          CKC_HYPER,                                          KC_KP_MINUS,    KC_7,        KC_8,        KC_9,        KC_KP_EQUAL,          XXXXXXX,
                                    _______, _______,    _______,  _______,  _______, _______,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______
     ),
 [LAYER_FUNCTION_KEYS] = LAYOUT_corne_hlc(
     _______, XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,                                          XXXXXXX,        KC_F1,        KC_F2,        KC_F3,        KC_F10, XXXXXXX,
     _______,  CKC_CTRL,    CKC_SHIFT,    CKC_ALT,    CKC_CMD,  XXXXXXX,                                          XXXXXXX,     KC_F4,        KC_F5,        KC_F6,        KC_F11,    XXXXXXX,
-    CKC_MEH,          KC_LEFT_CTRL,          KC_LEFT_SHIFT,          KC_LEFT_ALT,          KC_LEFT_GUI,          CKC_HYPER,                                          XXXXXXX,    KC_F7,        KC_F8,        KC_F9,        KC_F12,          XXXXXXX,
+    XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          CKC_MEH,          CKC_HYPER,                                          XXXXXXX,    KC_F7,        KC_F8,        KC_F9,        KC_F12,          XXXXXXX,
                                    _______, _______,    _______,  _______,  _______, _______,
                  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______
     ),

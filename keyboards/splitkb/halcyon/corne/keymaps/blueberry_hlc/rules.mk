@@ -12,7 +12,7 @@ DEFERRED_EXEC_ENABLE = yes
 # for select word module
 OS_DETECTION_ENABLE = yes
 SPACE_CADET_ENABLE = no
-CONSOLE_ENABLE=no
+CONSOLE_ENABLE=yes
 
 SRC += custom_oneshot.c
 
