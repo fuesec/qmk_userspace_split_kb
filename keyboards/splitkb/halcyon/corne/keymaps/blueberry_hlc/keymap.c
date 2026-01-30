@@ -1,5 +1,6 @@
 #include QMK_KEYBOARD_H
 #include "custom_oneshot.h"
+#include "print.h"
 #if __has_include("keymap.h")
 #    include "keymap.h"
 #endif
@@ -184,8 +185,10 @@ oneshot_state os_alt_state = os_up_unqueued;
 oneshot_state os_cmd_state = os_up_unqueued;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-	const char *key_name = get_keycode_string(keycode);
-	dprintf("kc: %s\n", key_name);
+#ifdef CONSOLE_ENABLE
+    uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %u, time: %5u, int: %u, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
+	uprintf("kc: %s\n", get_keycode_string(keycode));
+#endif
 
 	if (keycode == CKC_MEH || keycode == CKC_HYPER) {
     	update_oneshot(
