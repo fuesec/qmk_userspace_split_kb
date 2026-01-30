@@ -184,6 +184,9 @@ oneshot_state os_alt_state = os_up_unqueued;
 oneshot_state os_cmd_state = os_up_unqueued;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+	const char *key_name = get_keycode_string(keycode);
+	dprintf("kc: %s\n", key_name);
+
 	if (keycode == CKC_MEH || keycode == CKC_HYPER) {
     	update_oneshot(
         &os_shift_state, KC_LEFT_SHIFT, CKC_SHIFT, CKC_SHIFT, record
