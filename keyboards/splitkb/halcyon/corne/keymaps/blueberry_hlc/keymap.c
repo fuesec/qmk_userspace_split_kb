@@ -17,13 +17,15 @@ enum layer_names {
 enum custom_keycodes {
   CKC_MAC_DO_NOT_DISTURB = SAFE_RANGE,
   CKC_MOUSE_JIGGLE,
-  CKC_SHIFT,
-  CKC_CTRL,
-  CKC_ALT,
-  CKC_CMD,
-  CKC_MEH,
-  CKC_HYPER,
 };
+
+
+#define CKC_SHIFT KC_LEFT_SHIFT
+#define CKC_CTRL KC_LEFT_CTRL
+#define CKC_ALT KC_LEFT_ALT
+#define CKC_CMD KC_LEFT_GUI
+#define CKC_MEH KC_MEH
+#define CKC_HYPER KC_HYPER
 
 #define CKC_MAC_BACK LGUI(KC_LBRC)
 #define CKC_MAC_FORWARD LGUI(KC_RBRC)
@@ -59,7 +61,6 @@ typedef union {
 
 user_config_t user_config;
 
-// QK_BOOT ??
 // tap dance: TD(DANCE_0)
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [LAYER_BASE] = LAYOUT_corne_hlc(
@@ -98,7 +99,7 @@ KC_LEFT_CTRL,          KC_LEFT_SHIFT,          KC_LEFT_ALT,          KC_LEFT_GUI
                  _______, _______, _______, _______, _______, _______, _______, _______, _______,  _______
     ),
 [LAYER_SYSTEM] = LAYOUT_corne_hlc(
-    CKC_MOUSE_JIGGLE,          KC_MEDIA_PREV_TRACK,KC_MEDIA_NEXT_TRACK,KC_MEDIA_STOP,  KC_MEDIA_PLAY_PAUSE,XXXXXXX,                                XXXXXXX,          CKC_MAC_SCREENSHOT,          CKC_MAC_SCREENSHOT_AREA,          XXXXXXX,          XXXXXXX,          XXXXXXX,
+    CKC_MOUSE_JIGGLE,          KC_MEDIA_PREV_TRACK,KC_MEDIA_NEXT_TRACK,KC_MEDIA_STOP,  KC_MEDIA_PLAY_PAUSE,XXXXXXX,                                XXXXXXX,          CKC_MAC_SCREENSHOT,          CKC_MAC_SCREENSHOT_AREA,          XXXXXXX,          XXXXXXX,          QK_BOOTLOADER,
     XXXXXXX,         KC_BRIGHTNESS_DOWN,KC_BRIGHTNESS_UP,KC_AUDIO_VOL_DOWN,KC_AUDIO_VOL_UP,KC_AUDIO_MUTE,                                          QK_RGB_MATRIX_TOGGLE,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,          XXXXXXX,
     XXXXXXX,          CKC_MAC_SLEEP_DISPLAY, CKC_MAC_DO_NOT_DISTURB,       CKC_MAC_SLEEP,CKC_MAC_LOCK, XXXXXXX,                                 LUMINO,          QK_RGB_MATRIX_MODE_PREVIOUS,          QK_RGB_MATRIX_MODE_NEXT,          QK_RGB_MATRIX_HUE_DOWN,          QK_RGB_MATRIX_HUE_UP,          XXXXXXX,
                                    _______, _______,    _______,  _______,  XXXXXXX, XXXXXXX,
@@ -185,10 +186,11 @@ oneshot_state os_alt_state = os_up_unqueued;
 oneshot_state os_cmd_state = os_up_unqueued;
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-//#ifdef CONSOLE_ENABLE
+#ifdef CONSOLE_ENABLE
     uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %u, time: %5u, int: %u, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
 	uprintf("kc: %s\n", get_keycode_string(keycode));
-//#endif
+#endif
+#if 0
 	if (keycode == CKC_MEH || keycode == CKC_HYPER) {
     	update_oneshot(
         &os_shift_state, KC_LEFT_SHIFT, CKC_SHIFT, CKC_SHIFT, record
@@ -228,6 +230,7 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
         &os_cmd_state, KC_LEFT_GUI, CKC_CMD, keycode, record
     );
 	}
+#endif
 
     if (record->event.pressed) {
     static deferred_token token = INVALID_DEFERRED_TOKEN;
@@ -370,8 +373,10 @@ const key_override_t *key_overrides[] = {
 
 void keyboard_post_init_user(void) {
   // Customise these values to desired behaviour
+#ifdef CONSOLE_ENABLE
   debug_enable=true;
   debug_matrix=true;
   debug_keyboard=true;
   //debug_mouse=true;
+#endif
 }
