@@ -25,4 +25,5 @@
 #define CAPS_WORD_IDLE_TIMEOUT 3000  // 3 seconds.
 #define HSS(report) host_system_send(record->event.pressed ? report : 0); return false
 
-#define CIRQUE_PINNACLE_TAPPING_TERM 500
+#define CIRQUE_PINNACLE_TAPPING_TERM 250
+#define CIRQUE_PINNACLE_TOUCH_DEBOUNCE 2000
