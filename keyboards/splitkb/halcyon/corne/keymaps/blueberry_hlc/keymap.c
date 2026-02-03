@@ -15,19 +15,11 @@ enum layer_names {
 enum custom_keycodes {
     CKC_MAC_DO_NOT_DISTURB = SAFE_RANGE,
     CKC_MOUSE_JIGGLE,
+	CKC_MAC_BACK,
+	CKC_MAC_FORWARD,
+	CKC_MAC_PREVIOUS_TAB,
+    CKC_MAC_NEXT_TAB,
 };
-
-#define CKC_SHIFT KC_LEFT_SHIFT
-#define CKC_CTRL KC_LEFT_CTRL
-#define CKC_ALT KC_LEFT_ALT
-#define CKC_CMD KC_LEFT_GUI
-#define CKC_MEH KC_MEH
-#define CKC_HYPER KC_HYPR
-
-#define CKC_MAC_BACK SEND_STRING(SS_LGUI("["))
-#define CKC_MAC_FORWARD SEND_STRING(SS_LGUI("]"))
-#define CKC_MAC_PREVIOUS_TAB SEND_STRING(SS_LGUI(SS_LSFT("[")));
-#define CKC_MAC_NEXT_TAB SEND_STRING(SS_LGUI(SS_LSFT("]")));
 
 #define CKC_MAC_LOCK LGUI(LCTL(KC_Q))
 #define CKC_MAC_SLEEP LALT(LGUI(KC_MEDIA_EJECT))
@@ -53,29 +45,29 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 [LAYER_NAVIGATION]         = LAYOUT_corne_hlc(
         _______,      QK_MOUSE_WHEEL_LEFT, QK_MOUSE_WHEEL_RIGHT, QK_MOUSE_BUTTON_2, QK_MOUSE_BUTTON_1, QK_MOUSE_WHEEL_UP,   KC_HOME, CKC_MAC_BACK,         CKC_MAC_FORWARD,  CKC_MAC_INTELLIJ_TOOLWINDOW_TAB_LEFT, CKC_MAC_INTELLIJ_TOOLWINDOW_TAB_RIGHT, SELECT_WORD_BACK,
-        _______,      CKC_CTRL,            CKC_SHIFT,            CKC_ALT,           CKC_CMD,           QK_MOUSE_WHEEL_DOWN, KC_END,  KC_LEFT,              KC_RIGHT,         KC_DOWN,                              KC_UP,                                 SELECT_WORD,
-        KC_LEFT_CTRL, KC_LEFT_SHIFT,       KC_LEFT_ALT,          KC_LEFT_GUI,       CKC_MEH,           CKC_HYPER,           XXXXXXX, CKC_MAC_PREVIOUS_TAB, CKC_MAC_NEXT_TAB, KC_PAGE_DOWN,                         KC_PAGE_UP,                            _______,
+        _______,      KC_LEFT_CTRL,            KC_LEFT_SHIFT,            KC_LEFT_ALT,           KC_LEFT_GUI,           QK_MOUSE_WHEEL_DOWN, KC_END,  KC_LEFT,              KC_RIGHT,         KC_DOWN,                              KC_UP,                                 SELECT_WORD,
+        KC_LEFT_ALT, KC_LEFT_SHIFT,       KC_LEFT_ALT,          KC_LEFT_GUI,       KC_MEH,           KC_HYPR,           XXXXXXX, CKC_MAC_PREVIOUS_TAB, CKC_MAC_NEXT_TAB, KC_PAGE_DOWN,                         KC_PAGE_UP,                            _______,
                                                                  _______,           _______,           _______,             _______, _______,              _______,
                       _______,             _______,              _______,           _______,           _______,             _______, _______,              _______,          _______,                              _______
 ),
 [LAYER_SPECIAL_CHARACTERS] = LAYOUT_corne_hlc(
         _______, KC_GRAVE,        KC_LEFT_BRACKET, KC_LEFT_CURLY_BRACE, KC_LEFT_PAREN, KC_KP_ASTERISK, KC_PERCENT, KC_RIGHT_PAREN, KC_RIGHT_CURLY_BRACE, KC_RIGHT_BRACKET, KC_TILDE,     XXXXXXX,
-        _______, KC_DOUBLE_QUOTE, KC_EXCLAIM,      KC_KP_EQUAL,         KC_KP_MINUS,   KC_HASH,        KC_DOLLAR,  CKC_CMD,        CKC_ALT,              CKC_SHIFT,        CKC_CTRL,     XXXXXXX,
-        XXXXXXX, KC_QUOTE,        KC_AT,           KC_KP_PLUS,          KC_UNDERSCORE, KC_CIRCUMFLEX,  CKC_HYPER,  CKC_MEH,        KC_AMPERSAND,         KC_PIPE,          KC_BACKSLASH, XXXXXXX,
+        _______, KC_DOUBLE_QUOTE, KC_EXCLAIM,      KC_KP_EQUAL,         KC_KP_MINUS,   KC_HASH,        KC_DOLLAR,  KC_LEFT_GUI,        KC_LEFT_ALT,              KC_LEFT_SHIFT,        KC_LEFT_CTRL,     XXXXXXX,
+        XXXXXXX, KC_QUOTE,        KC_AT,           KC_KP_PLUS,          KC_UNDERSCORE, KC_CIRCUMFLEX,  KC_HYPR,  KC_MEH,        KC_AMPERSAND,         KC_PIPE,          KC_BACKSLASH, XXXXXXX,
                                                    _______,             _______,       _______,        _______,    _______,        _______,
                  _______,         _______,         _______,             _______,       _______,        _______,    _______,        _______,              _______,          _______
 ),
 [LAYER_NUMPAD]             = LAYOUT_corne_hlc(
         _______, XXXXXXX,  XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX,   KC_0,        KC_1,    KC_2,    KC_3,    KC_KP_DOT,   KC_KP_ASTERISK,
-        _______, CKC_CTRL, CKC_SHIFT, CKC_ALT, CKC_CMD, XXXXXXX,   KC_KP_PLUS,  KC_4,    KC_5,    KC_6,    KC_KP_COMMA, KC_KP_SLASH,
-        XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX, CKC_MEH, CKC_HYPER, KC_KP_MINUS, KC_7,    KC_8,    KC_9,    KC_KP_EQUAL, XXXXXXX,
+        _______, KC_LEFT_CTRL, KC_LEFT_SHIFT, KC_LEFT_ALT, KC_LEFT_GUI, XXXXXXX,   KC_KP_PLUS,  KC_4,    KC_5,    KC_6,    KC_KP_COMMA, KC_KP_SLASH,
+        XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX, KC_MEH, KC_HYPR, KC_KP_MINUS, KC_7,    KC_8,    KC_9,    KC_KP_EQUAL, XXXXXXX,
                                       _______, _______, _______,   _______,     _______, _______,
                  _______,  _______,   _______, _______, _______,   _______,     _______, _______, _______, _______
 ),
 [LAYER_FUNCTION_KEYS]      = LAYOUT_corne_hlc(
         _______, XXXXXXX,  XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX,   XXXXXXX, KC_F1,   KC_F2,   KC_F3,   KC_F10, XXXXXXX,
-        _______, CKC_CTRL, CKC_SHIFT, CKC_ALT, CKC_CMD, XXXXXXX,   XXXXXXX, KC_F4,   KC_F5,   KC_F6,   KC_F11, XXXXXXX,
-        XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX, CKC_MEH, CKC_HYPER, XXXXXXX, KC_F7,   KC_F8,   KC_F9,   KC_F12, XXXXXXX,
+        _______, KC_LEFT_CTRL, KC_LEFT_SHIFT, KC_LEFT_ALT, KC_LEFT_GUI, XXXXXXX,   XXXXXXX, KC_F4,   KC_F5,   KC_F6,   KC_F11, XXXXXXX,
+        XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX, KC_MEH, KC_HYPR, XXXXXXX, KC_F7,   KC_F8,   KC_F9,   KC_F12, XXXXXXX,
                                       _______, _______, _______,   _______, _______, _______,
                  _______,  _______,   _______, _______, _______,   _______, _______, _______, _______, _______
 ),
@@ -128,6 +120,28 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %u, time: %5u, int: %u, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
     uprintf("kc: %s\n", get_keycode_string(keycode));
 #endif
+	switch (keycode) {
+        case CKC_MAC_BACK:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LGUI("["));
+            }
+            return false;
+        case CKC_MAC_FORWARD:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LGUI("]"));
+            }
+            return false;
+        case CKC_MAC_PREVIOUS_TAB:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LGUI(SS_LSFT("[")));
+            }
+            return false;
+        case CKC_MAC_NEXT_TAB:
+            if (record->event.pressed) {
+                SEND_STRING(SS_LGUI(SS_LSFT("]")));
+            }
+            return false;
+    }
 
     if (record->event.pressed) {
         static deferred_token token  = INVALID_DEFERRED_TOKEN;

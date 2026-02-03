@@ -2,7 +2,7 @@
 ENCODER_ENABLE = yes
 ENCODER_MAP_ENABLE = no
 # for double key press etc.
-TAP_DANCE_ENABLE = yes
+TAP_DANCE_ENABLE = no
 # e.g. shift + backspace -> forward delete
 KEY_OVERRIDE_ENABLE = yes
 CAPS_WORD_ENABLE = yes
