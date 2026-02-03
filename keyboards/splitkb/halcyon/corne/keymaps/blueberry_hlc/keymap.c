@@ -25,7 +25,7 @@ enum custom_keycodes {
 #define CKC_ALT KC_LEFT_ALT
 #define CKC_CMD KC_LEFT_GUI
 #define CKC_MEH KC_MEH
-#define CKC_HYPER KC_HYPER
+#define CKC_HYPER KC_HYPR
 
 #define CKC_MAC_BACK LGUI(KC_LBRC)
 #define CKC_MAC_FORWARD LGUI(KC_RBRC)
