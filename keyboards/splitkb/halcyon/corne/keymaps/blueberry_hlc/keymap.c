@@ -1,6 +1,4 @@
 #include QMK_KEYBOARD_H
-#include "custom_oneshot.h"
-#include "print.h"
 #if __has_include("keymap.h")
 #    include "keymap.h"
 #endif
@@ -26,12 +24,10 @@ enum custom_keycodes {
 #define CKC_MEH KC_MEH
 #define CKC_HYPER KC_HYPR
 
-// #define CKC_MAC_BACK LGUI(KC_LBRC)
-#define CKC_MAC_BACK KC_WWW_BACK
-// #define CKC_MAC_FORWARD LGUI(KC_RBRC)
-#define CKC_MAC_FORWARD KC_WWW_FORWARD
-#define CKC_MAC_PREVIOUS_TAB LGUI(LSFT(KC_LEFT_BRACKET))
-#define CKC_MAC_NEXT_TAB LGUI(LSFT(KC_RIGHT_BRACKET))
+#define CKC_MAC_BACK SEND_STRING(SS_LGUI("["))
+#define CKC_MAC_FORWARD SEND_STRING(SS_LGUI("]"))
+#define CKC_MAC_PREVIOUS_TAB SEND_STRING(SS_LGUI(SS_LSFT("[")));
+#define CKC_MAC_NEXT_TAB SEND_STRING(SS_LGUI(SS_LSFT("]")));
 
 #define CKC_MAC_LOCK LGUI(LCTL(KC_Q))
 #define CKC_MAC_SLEEP LALT(LGUI(KC_MEDIA_EJECT))
@@ -46,20 +42,6 @@ enum custom_keycodes {
 #define CKC_MO_LAYER_NUMPAD MO(LAYER_NUMPAD)
 #define CKC_MO_LAYER_FUNCTION_KEYS MO(LAYER_FUNCTION_KEYS)
 #define CKC_MO_LAYER_SYSTEM MO(LAYER_SYSTEM)
-
-enum tap_dance_codes {
-    DANCE_0, // switch to num pad layer
-    DANCE_1, // persist color to EEPROM
-};
-
-typedef union {
-    uint32_t raw;
-    struct {
-        uint8_t color_index : 8;
-    };
-} user_config_t;
-
-user_config_t user_config;
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 [LAYER_BASE]               = LAYOUT_corne_hlc(
@@ -105,34 +87,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                           _______,               _______,                _______,           _______,             _______,       _______,              _______,                     _______,                 _______,                _______
 )};
 
-bool is_oneshot_cancel_key(uint16_t keycode) {
-    switch (keycode) {
-        case CKC_MO_LAYER_SYSTEM:
-            return true;
-        default:
-            return false;
-    }
-}
-
-bool is_oneshot_ignored_key(uint16_t keycode) {
-    switch (keycode) {
-        case CKC_MO_LAYER_NAVIGATION:
-        case CKC_MO_LAYER_SPECIAL_CHARACTERS:
-        case CKC_MO_LAYER_NUMPAD:
-        case CKC_MO_LAYER_FUNCTION_KEYS:
-        case CKC_MO_LAYER_SYSTEM:
-        case CKC_SHIFT:
-        case CKC_CTRL:
-        case CKC_ALT:
-        case CKC_CMD:
-        case CKC_MEH:
-        case CKC_HYPER:
-            return true;
-        default:
-            return false;
-    }
-}
-
 bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index != 1) { // only rotary encoder on position 1 is relevant
         return false;
@@ -169,56 +123,10 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     return false;
 }
 
-oneshot_state os_shift_state = os_up_unqueued;
-oneshot_state os_ctrl_state  = os_up_unqueued;
-oneshot_state os_alt_state   = os_up_unqueued;
-oneshot_state os_cmd_state   = os_up_unqueued;
-
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CONSOLE_ENABLE
     uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %u, time: %5u, int: %u, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
     uprintf("kc: %s\n", get_keycode_string(keycode));
-#endif
-#if 0
-	if (keycode == CKC_MEH || keycode == CKC_HYPER) {
-    	update_oneshot(
-        &os_shift_state, KC_LEFT_SHIFT, CKC_SHIFT, CKC_SHIFT, record
-    );
-	} else {
-	    update_oneshot(
-        &os_shift_state, KC_LEFT_SHIFT, CKC_SHIFT, keycode, record
-    );
-	}
-
-	if (keycode == CKC_MEH || keycode == CKC_HYPER) {
-    	update_oneshot(
-        &os_ctrl_state, KC_LEFT_CTRL, CKC_CTRL, CKC_CTRL, record
-    );
-	} else {
-	    update_oneshot(
-        &os_ctrl_state, KC_LEFT_CTRL, CKC_CTRL, keycode, record
-    );
-	}
-
-	if (keycode == CKC_MEH || keycode == CKC_HYPER) {
-    	update_oneshot(
-        &os_alt_state, KC_LEFT_ALT, CKC_ALT, CKC_ALT, record
-    );
-	} else {
-	    update_oneshot(
-        &os_alt_state, KC_LEFT_ALT, CKC_ALT, keycode, record
-    );
-	}
-
-	if (keycode == CKC_HYPER) {
-    	update_oneshot(
-        &os_cmd_state, KC_LEFT_GUI, CKC_CMD, CKC_CMD, record
-    );
-	} else {
-	    update_oneshot(
-        &os_cmd_state, KC_LEFT_GUI, CKC_CMD, keycode, record
-    );
-	}
 #endif
 
     if (record->event.pressed) {
@@ -256,78 +164,6 @@ bool process_record_user(uint16_t keycode, keyrecord_t *record) {
     }
     return true; // Process all other keycodes normally
 }
-
-#ifdef TAP_DANCE_ENABLE
-typedef struct {
-    bool    is_press_action;
-    uint8_t step;
-} tap;
-
-enum { SINGLE_TAP = 1, SINGLE_HOLD, DOUBLE_TAP, DOUBLE_HOLD, DOUBLE_SINGLE_TAP, MORE_TAPS };
-
-static tap dance_state[2];
-
-uint8_t dance_step(tap_dance_state_t *state);
-
-uint8_t dance_step(tap_dance_state_t *state) {
-    if (state->count == 1) {
-        if (state->interrupted || !state->pressed)
-            return SINGLE_TAP;
-        else
-            return SINGLE_HOLD;
-    } else if (state->count == 2) {
-        if (state->interrupted)
-            return DOUBLE_SINGLE_TAP;
-        else if (state->pressed)
-            return DOUBLE_HOLD;
-        else
-            return DOUBLE_TAP;
-    }
-    return MORE_TAPS;
-}
-
-void dance_0_finished(tap_dance_state_t *state, void *user_data);
-void dance_0_reset(tap_dance_state_t *state, void *user_data);
-
-void dance_0_finished(tap_dance_state_t *state, void *user_data) {
-    dance_state[0].step = dance_step(state);
-    switch (dance_state[0].step) {
-        case DOUBLE_TAP:
-            layer_move(5);
-            break;
-    }
-}
-
-void dance_0_reset(tap_dance_state_t *state, void *user_data) {
-    wait_ms(10);
-    switch (dance_state[0].step) {}
-    dance_state[0].step = 0;
-}
-
-void dance_1_finished(tap_dance_state_t *state, void *user_data);
-void dance_1_reset(tap_dance_state_t *state, void *user_data);
-
-void dance_1_finished(tap_dance_state_t *state, void *user_data) {
-    dance_state[1].step = dance_step(state);
-    switch (dance_state[1].step) {
-        case DOUBLE_TAP: {
-            eeconfig_update_user(user_config.raw);
-            break;
-        }
-    }
-}
-
-void dance_1_reset(tap_dance_state_t *state, void *user_data) {
-    wait_ms(10);
-    switch (dance_state[1].step) {}
-    dance_state[1].step = 0;
-}
-
-tap_dance_action_t tap_dance_actions[] = {
-    [DANCE_0] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_0_finished, dance_0_reset),
-    [DANCE_1] = ACTION_TAP_DANCE_FN_ADVANCED(NULL, dance_1_finished, dance_1_reset),
-};
-#endif
 
 #ifdef KEY_OVERRIDE_ENABLE
 const key_override_t delete_key_override = ko_make_with_layers_negmods_and_options(MOD_MASK_SHIFT,                   // Trigger modifier

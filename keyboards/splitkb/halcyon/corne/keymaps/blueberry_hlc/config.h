@@ -3,10 +3,6 @@
 
 #pragma once
 
-// #undef ONESHOT_TIMEOUT
-// #define ONESHOT_TIMEOUT 2500
-// #define NO_ACTION_ONESHOT
-
 #undef RGB_MATRIX_TIMEOUT
 #define RGB_MATRIX_TIMEOUT 180000 // 3 minutes
 
@@ -28,4 +24,3 @@
 
 #define CAPS_WORD_IDLE_TIMEOUT 3000  // 3 seconds.
 #define HSS(report) host_system_send(record->event.pressed ? report : 0); return false
-// #define HCS(report) host_consumer_send(record->event.pressed ? report : 0); return false
