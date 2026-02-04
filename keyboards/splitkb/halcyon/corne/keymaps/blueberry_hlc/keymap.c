@@ -44,7 +44,7 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                              KC_MUTE, XXXXXXX, XXXXXXX,                    XXXXXXX,             XXXXXXX,                 XXXXXXX,                         XXXXXXX,  XXXXXXX,             XXXXXXX, XXXXXXX
     ),
 [LAYER_NAVIGATION]         = LAYOUT_corne_hlc(
-        _______,      QK_MOUSE_WHEEL_LEFT, QK_MOUSE_WHEEL_RIGHT, QK_MOUSE_BUTTON_2, QK_MOUSE_BUTTON_1, QK_MOUSE_WHEEL_UP,   KC_HOME, CKC_MAC_BACK,         CKC_MAC_FORWARD,  CKC_MAC_INTELLIJ_TOOLWINDOW_TAB_LEFT, CKC_MAC_INTELLIJ_TOOLWINDOW_TAB_RIGHT, SELECT_WORD_BACK,
+        _______,      QK_MOUSE_WHEEL_LEFT, QK_MOUSE_WHEEL_RIGHT, QK_MOUSE_BUTTON_2, QK_MOUSE_BUTTON_1, QK_MOUSE_WHEEL_UP,   KC_HOME, CKC_MAC_BACK,         CKC_MAC_FORWARD,  SELECT_LINE, SELECT_LINE_UP, SELECT_WORD_BACK,
         _______,      KC_LEFT_CTRL,            KC_LEFT_SHIFT,            KC_LEFT_ALT,           KC_LEFT_GUI,           QK_MOUSE_WHEEL_DOWN, KC_END,  KC_LEFT,              KC_RIGHT,         KC_DOWN,                              KC_UP,                                 SELECT_WORD,
         KC_LEFT_ALT, KC_LEFT_SHIFT,       KC_LEFT_ALT,          KC_LEFT_GUI,       KC_MEH,           KC_HYPR,           XXXXXXX, CKC_MAC_PREVIOUS_TAB, CKC_MAC_NEXT_TAB, KC_PAGE_DOWN,                         KC_PAGE_UP,                            _______,
                                                                  _______,           _______,           _______,             _______, _______,              _______,
