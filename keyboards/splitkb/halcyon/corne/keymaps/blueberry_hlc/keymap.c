@@ -58,9 +58,9 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
                  _______,         _______,         _______,             _______,       _______,        _______,    _______,        _______,              _______,          _______
 ),
 [LAYER_NUMPAD]             = LAYOUT_corne_hlc(
-        _______, XXXXXXX,  XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX,   KC_0,        KC_1,    KC_2,    KC_3,    KC_KP_DOT,   KC_KP_ASTERISK,
-        _______, KC_LEFT_CTRL, KC_LEFT_SHIFT, KC_LEFT_ALT, KC_LEFT_GUI, XXXXXXX,   KC_KP_PLUS,  KC_4,    KC_5,    KC_6,    KC_KP_COMMA, KC_KP_SLASH,
-        XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX, KC_MEH, KC_HYPR, KC_KP_MINUS, KC_7,    KC_8,    KC_9,    KC_KP_EQUAL, XXXXXXX,
+        _______, XXXXXXX,  XXXXXXX,   XXXXXXX, XXXXXXX, XXXXXXX,   KC_KP_MINUS,        KC_1,    KC_2,    KC_3,    KC_KP_DOT,   KC_KP_SLASH,
+        _______, KC_LEFT_CTRL, KC_LEFT_SHIFT, KC_LEFT_ALT, KC_LEFT_GUI, XXXXXXX,   KC_KP_PLUS,  KC_4,    KC_5,    KC_6,    KC_KP_COMMA, KC_KP_ASTERISK,
+        XXXXXXX, XXXXXXX,  XXXXXXX,   XXXXXXX, KC_MEH, KC_HYPR, KC_0, KC_7,    KC_8,    KC_9,    KC_KP_EQUAL, XXXXXXX,
                                       _______, _______, _______,   _______,     _______, _______,
                  _______,  _______,   _______, _______, _______,   _______,     _______, _______, _______, _______
 ),
