@@ -12,7 +12,9 @@ DEFERRED_EXEC_ENABLE = yes
 # for select word module
 OS_DETECTION_ENABLE = yes
 SPACE_CADET_ENABLE = no
-CONSOLE_ENABLE=no
+# split-link debugging: flip back to no when done (see keymap.c split_link_debug_task)
+CONSOLE_ENABLE = yes
+DEBUG_MATRIX_SCAN_RATE_ENABLE = yes
 KEYCODE_STRING_ENABLE = yes
 
 # This adds module functionality to your keyboard (files found in users/halcyon_modules)

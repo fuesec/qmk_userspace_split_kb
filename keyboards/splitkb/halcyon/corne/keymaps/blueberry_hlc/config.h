@@ -26,4 +26,9 @@
 #define HSS(report) host_system_send(record->event.pressed ? report : 0); return false
 
 #define CIRQUE_PINNACLE_TAPPING_TERM 120
+
+#ifdef CONSOLE_ENABLE
+// Slave-uptime probe used to tell a data-line glitch apart from a slave reboot.
+#    define SPLIT_TRANSACTION_IDS_USER USER_LINK_PROBE
+#endif
 // #define CIRQUE_PINNACLE_TOUCH_DEBOUNCE 2000

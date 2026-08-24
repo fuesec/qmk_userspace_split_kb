@@ -3,6 +3,81 @@
 #    include "keymap.h"
 #endif
 
+#ifdef CONSOLE_ENABLE
+#    include "split_util.h"
+#    include "transactions.h"
+
+// Split-link diagnostics.
+//
+// Rows 0-4 are the left (master) half, rows 5-9 the right (slave) half, so every
+// key event can be attributed to a half. On top of that we poll the slave for its
+// own uptime: if that value ever goes backwards, the right half rebooted (power /
+// VBUS problem) rather than merely losing the UART link (data pin problem).
+typedef struct __attribute__((packed)) {
+    uint32_t uptime_ms;
+} link_probe_t;
+
+#    define LINK_PROBE_INTERVAL_MS 200
+#    define LINK_HEARTBEAT_MS 1000
+
+// Runs on the slave (right) half.
+void user_link_probe_slave_handler(uint8_t in_size, const void *in, uint8_t out_size, void *out) {
+    if (out_size == sizeof(link_probe_t)) {
+        ((link_probe_t *)out)->uptime_ms = timer_read32();
+    }
+}
+
+static void split_link_debug_task(void) {
+    static bool     link_up       = true;
+    static uint32_t probe_timer   = 0;
+    static uint32_t beat_timer    = 0;
+    static uint32_t down_since    = 0;
+    static uint32_t slave_uptime  = 0;
+    static uint16_t probe_fails   = 0;
+    static uint16_t slave_reboots = 0;
+
+    if (!is_keyboard_master()) return;
+
+    // Edges of QMK's own connection state, timestamped to the millisecond.
+    bool now_up = is_transport_connected();
+    if (now_up != link_up) {
+        uint32_t now = timer_read32();
+        if (now_up) {
+            uprintf("[SPLIT] UP t=%lu outage=%lums\n", (unsigned long)now, (unsigned long)(now - down_since));
+        } else {
+            down_since = now;
+            uprintf("[SPLIT] DOWN t=%lu\n", (unsigned long)now);
+        }
+        link_up = now_up;
+    }
+
+    if (timer_elapsed32(probe_timer) < LINK_PROBE_INTERVAL_MS) return;
+    probe_timer = timer_read32();
+
+    link_probe_t probe = {0};
+    if (!transaction_rpc_recv(USER_LINK_PROBE, sizeof(probe), &probe)) {
+        probe_fails++;
+        uprintf("[SPLIT] probe FAIL t=%lu fails=%u\n", (unsigned long)probe_timer, probe_fails);
+        return;
+    }
+
+    if (probe.uptime_ms < slave_uptime) {
+        slave_reboots++;
+        uprintf("[SPLIT] SLAVE REBOOT t=%lu slave_uptime=%lu (was %lu) reboots=%u\n", (unsigned long)probe_timer, (unsigned long)probe.uptime_ms, (unsigned long)slave_uptime, slave_reboots);
+    }
+    slave_uptime = probe.uptime_ms;
+
+    if (timer_elapsed32(beat_timer) >= LINK_HEARTBEAT_MS) {
+        beat_timer = probe_timer;
+        uprintf("[SPLIT] hb t=%lu slave=%lu skew=%ldms fails=%u reboots=%u\n", (unsigned long)probe_timer, (unsigned long)slave_uptime, (long)((int32_t)probe_timer - (int32_t)slave_uptime), probe_fails, slave_reboots);
+    }
+}
+
+void housekeeping_task_user(void) {
+    split_link_debug_task();
+}
+#endif
+
 enum layer_names {
     LAYER_BASE,
     LAYER_NAVIGATION,
@@ -117,8 +192,9 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
 
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
 #ifdef CONSOLE_ENABLE
-    uprintf("KL: kc: 0x%04X, col: %2u, row: %2u, pressed: %u, time: %5u, int: %u, count: %u\n", keycode, record->event.key.col, record->event.key.row, record->event.pressed, record->event.time, record->tap.interrupted, record->tap.count);
-    uprintf("kc: %s\n", get_keycode_string(keycode));
+    // One compact line per key event. "half" is L/R so dropped or phantom events can
+    // be attributed to a half at a glance: rows 0-4 are left, rows 5-9 are right.
+    uprintf("[KEY] t=%lu half=%c row=%u col=%u %s %s\n", (unsigned long)timer_read32(), record->event.key.row < 5 ? 'L' : 'R', record->event.key.row, record->event.key.col, record->event.pressed ? "DOWN" : "UP  ", get_keycode_string(keycode));
 #endif
 	switch (keycode) {
         case CKC_MAC_BACK:
@@ -200,9 +276,15 @@ const key_override_t *key_overrides[] = {&delete_key_override, &delete_word_key_
 void keyboard_post_init_user(void) {
     // Customise these values to desired behaviour
 #ifdef CONSOLE_ENABLE
-    debug_enable   = true;
-    debug_matrix   = true;
-    debug_keyboard = true;
+    transaction_register_rpc(USER_LINK_PROBE, user_link_probe_slave_handler);
+
+    debug_enable = true;
+    // debug_matrix dumps all 10 matrix rows on every change. That is enough console
+    // traffic to perturb the very timing we are measuring, and process_record_user
+    // below already reports each key with its row/col. Leave it off for split-link
+    // hunting; turn it on only when chasing a matrix-level problem.
+    debug_matrix   = false;
+    debug_keyboard = false;
     // debug_mouse=true;
 #endif
 }
